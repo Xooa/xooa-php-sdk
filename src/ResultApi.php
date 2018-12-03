@@ -255,10 +255,54 @@ class ResultApi {
         } else {
             $blockResponse = new BlockResponse();
             $blockResponse->setDataHash($response->getResponseText()["payload"]["data_hash"]);
-            $blockResponse->setpreviousHash($response->getResponseText()["payload"]["previous_hash"]);
+            $blockResponse->setPreviousHash($response->getResponseText()["payload"]["previous_hash"]);
             $blockResponse->setNumberOfTransactions($response->getResponseText()["payload"]["numberOfTransactions"]);
             $blockResponse->setBlockNumber($response->getResponseText()["payload"]["blockNumber"]);
             return $blockResponse;
+        }
+    }
+
+    /**
+     * Gets the result for transaction pending request
+     *
+     * @param  string $resultId
+     *
+     * @return TransactionResponse
+     * 
+     * @throws XooaApiException
+     * @throws XooaRequestTimeoutException
+     */
+    public function getResultForTransaction($calloutBaseUrl, $apiToken, $resultId) {
+        $url = $calloutBaseUrl . "/results/" . $resultId;
+
+        $callout = new WebService($apiToken);
+        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+
+        if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
+            XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
+            $apiException = new XooaApiException();
+            $apiException->setErrorCode($response->getResponseCode());
+            $apiException->setErrorMessage($response->getResponseText()["error"]);
+            throw $apiException;
+
+        } else if ($response->getResponseCode() == 202) {             
+            XooaClient::$log->notice('Timeout Exception occured');
+            $timeoutException = new XooaRequestTimeoutException();
+            $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
+            $timeoutException->setResultId($response->getResponseText()["resultId"]);
+            throw $timeoutException;
+            
+        } else {
+            $transactionResponse = new TransactionResponse();
+            $transactionResponse->setTxid($response->getResponseText()["payload"]["txid"]);
+            $transactionResponse->setCreatedt($response->getResponseText()["payload"]["createdt"]);
+            $transactionResponse->setSmartcontract($response->getResponseText()["payload"]["smartcontract"]);
+            $transactionResponse->setCreator_msp_id($response->getResponseText()["payload"]["creator_msp_id"]);
+            $transactionResponse->setEndorser_msp_id($response->getResponseText()["payload"]["endorser_msp_id"]);
+            $transactionResponse->setType($response->getResponseText()["payload"]["type"]);
+            $transactionResponse->setRead_set($response->getResponseText()["payload"]["read_set"]);
+            $transactionResponse->setWrite_set($response->getResponseText()["payload"]["write_set"]);
+            return $transactionResponse;
         }
     }
 }

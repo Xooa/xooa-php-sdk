@@ -24,22 +24,22 @@ namespace XooaSDK\response;
     private $blockNumber;
 
     /**
-     * getpreviousHash
+     * getPreviousHash
      *
      * @return string
      */
-    public function getpreviousHash(): string {
+    public function getPreviousHash(): string {
         return $this->previousHash;
     }
 
     /**
-     * setpreviousHash
+     * setPreviousHash
      *
      * @param  mixed $previousHash
      *
      * @return string
      */
-    public function setpreviousHash($previousHash): void {
+    public function setPreviousHash($previousHash): void {
         $this->previousHash = $previousHash;
     }
 

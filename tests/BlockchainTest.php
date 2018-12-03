@@ -22,7 +22,7 @@ use XooaSDK\XooaClient;
 final class BlockchainTest extends TestCase {
     protected function setUp()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiIxOVMxMFAzLTlRMTRZNTYtS0U0TkpRNS01UlJBQlBIIiwiQXBpU2VjcmV0IjoiWVVVYkVHRU40aHdRWTdxIiwiUGFzc3BocmFzZSI6IjE5MjUwNmQwODk2MjgzNTdjYzhjNWMwN2Y4YzhmNzY3IiwiaWF0IjoxNTQxMDQ0NjgxfQ.MydsbPR2GH4BPiFW4Y3vWfIpFVzB5W86VPqOL7eqUZk");
+        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI");
         $this->xooaClient->validate();
     }
     
@@ -55,6 +55,22 @@ final class BlockchainTest extends TestCase {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
             $this->xooaClient->getBlockByNumberAsync(1)
+        );
+    }
+
+    public function testCanGetTransactionByTransactionIdFromValidArguments(): void
+    {
+        $this->assertInstanceOf(
+            'XooaSDK\response\TransactionResponse',
+            $this->xooaClient->getTransactionByTransactionId("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874")
+        );
+    }
+
+    public function testCanGetTransactionByTransactionIdAsyncFromValidArguments(): void
+    {
+        $this->assertInstanceOf(
+            'XooaSDK\response\PendingTransactionResponse',
+            $this->xooaClient->getTransactionByTransactionIdAsync("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874")
         );
     }
 }

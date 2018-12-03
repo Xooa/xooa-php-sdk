@@ -37,8 +37,8 @@
     class XooaClient {
         
         /** @var string Should contain a Xooa URl to send APIs to if not set by User*/
-        private static  $DEFAULT_CALLOUT_BASE_URL = "https://api.staging.xooa.io/api/v1";
-        private static  $DEFAULT_SOCKET_URL = "https://api.staging.xooa.io/";
+        private static  $DEFAULT_CALLOUT_BASE_URL = "https://api.xooa.com/api/v1";
+        private static  $DEFAULT_SOCKET_URL = "https://api.xooa.com/";
         
         /** @var string Should contain a Xooa API Token to authorize requests */
         private $apiToken;
@@ -143,6 +143,7 @@
             if ($this->calloutBaseUrl == null) {
                 $this->calloutBaseUrl = $this::$DEFAULT_CALLOUT_BASE_URL;
             }
+            $this::$log->debug('calloutbaseURL set to: '.$this->calloutBaseUrl);
             $response = $this->webService->validateDetails($this->calloutBaseUrl);
 
             if ($response->getResponseCode() != 200) {
@@ -435,6 +436,37 @@
             $this::$log->debug('XooaClient::getBlockByNumberAsync() called');
             $blockchainApi = new BlockchainApi();
             return $blockchainApi->getBlockByNumberAsync($this->calloutBaseUrl, $this->apiToken, $blockNumber);
+        }
+        
+        /**
+         * Gets the detail about given transaction id
+         *
+         * @param  string $transactionId
+         *
+         * @return TransactionResponse
+         * 
+         * @throws XooaApiException
+         * @throws XooaRequestTimeoutException
+         */
+        public function getTransactionByTransactionId($transactionId) {
+            $this::$log->debug('XooaClient::getTransactionByTransactionId() called');
+            $blockchainApi = new BlockchainApi();
+            return $blockchainApi->getTransactionByTransactionId($this->calloutBaseUrl, $this->apiToken, $transactionId);
+        }
+        
+        /**
+         * Gets the detail about given transaction id asynchronously
+         *
+         * @param  string $transactionId
+         *
+         * @return PendingTransactionResponse
+         * 
+         * @throws XooaApiException
+         */
+        public function getTransactionByTransactionIdAsync($transactionId) {
+            $this::$log->debug('XooaClient::getTransactionByTransactionIdAsync() called');
+            $blockchainApi = new BlockchainApi();
+            return $blockchainApi->getTransactionByTransactionIdAsync($this->calloutBaseUrl, $this->apiToken, $transactionId);
         }
 
         // -------- RESULT METHODS ---------

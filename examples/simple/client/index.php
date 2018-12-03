@@ -16,7 +16,7 @@
  * Author: Arisht Jain
  */
 
-    require_once('../vendor/autoload.php');
+    require_once('../../../vendor/autoload.php');
     use XooaSDK\XooaClient;
 
     use Monolog\Logger;
@@ -27,12 +27,14 @@
 
     $XooaClient = new XooaClient("<Xooa API Token>");
     $identityId = "";
+    $trxnId = "";
     $invokeResultID = "";
     $queryResultID = "";
     $identityResultID = "";
     $deleteIdentityResultID = "";
     $currentBlockResultID = "";
     $blockResultID = "";
+    $transactionResultID = "";
     if($XooaClient->validate()) {
 
         // Calling invoke methods
@@ -47,6 +49,7 @@
             $log->debug('calling invoke method "set" with args "args1, args2"');
             $response = $XooaClient->invoke('set', ["args1","args2"], 3000);
             var_dump($response);
+            $trxnId = $response->getTransactionId();
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -304,6 +307,31 @@
             var_dump($e);
         }
 
+        /**
+         * To get details about a block, call getTransactionByTransactionId method
+         * transaction id is required argument
+         * */
+        try {
+            $log->debug('calling getTransactionByTransactionId method with "trxnId" as transaction id');
+            $response = $XooaClient->getTransactionByTransactionId($trxnId);
+            var_dump($response);
+        } catch (Exception $e) {
+            var_dump($e);
+        }
+
+        /**
+         * To get details about a block asynchronously, call getTransactionByTransactionIdAsync method
+         * transaction id is required argument
+         * */
+        try {
+            $log->debug('calling getTransactionByTransactionIdAsync method with "trxnId" as transaction id');
+            $response = $XooaClient->getTransactionByTransactionIdAsync($trxnId);
+            var_dump($response);
+            $transactionResultID = $response->getResultId();
+        } catch (Exception $e) {
+            var_dump($e);
+        }
+
         // Calling results methods
 
         /**
@@ -373,6 +401,18 @@
         try {
             $log->debug('calling getResultForBlockByNumber method with resultId generated in getBlockByNumberAsync method call');
             $response = $XooaClient->getResultForBlockByNumber($blockResultID);
+            var_dump($response);
+        } catch (Exception $e) {
+            var_dump($e);
+        }
+
+        /**
+         * To get result for transaction pending request, call getResultForTransaction method
+         * resultId is required argument
+         * */
+        try {
+            $log->debug('calling getResultForTransaction method with resultId generated in getTransactionByTransactionIdAsync method call');
+            $response = $XooaClient->getResultForTransaction($transactionResultID);
             var_dump($response);
         } catch (Exception $e) {
             var_dump($e);

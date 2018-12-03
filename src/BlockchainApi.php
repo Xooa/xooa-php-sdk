@@ -21,6 +21,7 @@ use XooaSDK\exception\XooaApiException;
 use XooaSDK\exception\XooaRequestTimeoutException;
 use XooaSDK\response\BlockResponse;
 use XooaSDK\response\CurrentBlockResponse;
+use XooaSDK\response\TransactionResponse;
 use XooaSDK\response\PendingTransactionResponse;
 use XooaSDK\WebService;
 
@@ -77,6 +78,35 @@ class BlockchainApi {
      */
     public function getBlockByNumberAsync($calloutBaseUrl, $apiToken, $blockNumber) {
         $url = $calloutBaseUrl . "/block/" . $blockNumber . "/?async=true";
+        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+    }
+
+    /**
+     * Gets the detail about given transaction id
+     *
+     * @param  int $transactionId
+     *
+     * @return BlockResponse
+     * 
+     * @throws XooaApiException
+     * @throws XooaRequestTimeoutException
+     */
+    public function getTransactionByTransactionId($calloutBaseUrl, $apiToken, $transactionId) {
+        $url = $calloutBaseUrl . "/transactions/" . $transactionId;
+        return $this->callTransactionApi($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+    }
+
+    /**
+     * Gets the detail about given transaction id asynchronously
+     *
+     * @param  int $transactionId
+     *
+     * @return PendingTransactionResponse
+     * 
+     * @throws XooaApiException
+     */
+    public function getTransactionByTransactionIdAsync($calloutBaseUrl, $apiToken, $transactionId) {
+        $url = $calloutBaseUrl . "/transactions/" . $transactionId . "/?async=true";
         return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
     }
 
@@ -140,10 +170,54 @@ class BlockchainApi {
         } else {
             $blockResponse = new BlockResponse();
             $blockResponse->setDataHash($response->getResponseText()["data_hash"]);
-            $blockResponse->setpreviousHash($response->getResponseText()["previous_hash"]);
+            $blockResponse->setPreviousHash($response->getResponseText()["previous_hash"]);
             $blockResponse->setNumberOfTransactions($response->getResponseText()["numberOfTransactions"]);
             $blockResponse->setBlockNumber($response->getResponseText()["blockNumber"]);
             return $blockResponse;
+        }
+    }
+
+    /**
+     * callTransactionApi
+     *
+     * @param  string $apiToken
+     * @param  string $url
+     * @param  string $requestMethod
+     *
+     * @return BlockResponse
+     * 
+     * @throws XooaApiException
+     * @throws XooaRequestTimeoutException
+     */
+    private function callTransactionApi($apiToken, $url, $requestMethod) {
+        $callout = new WebService($apiToken);
+        $response = $callout->makeBlockchainCall($url, $requestMethod);
+
+        if ($response->getResponseCode()>=400 && $response->getResponseCode()<500) {
+            XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
+            $apiException = new XooaApiException();
+            $apiException->setErrorCode($response->getResponseCode());
+            $apiException->setErrorMessage($response->getResponseText()["error"]);
+            throw $apiException;
+
+        } else if ($response->getResponseCode() == 202) {
+            XooaClient::$log->notice('Timeout Exception occured');
+            $timeoutException = new XooaRequestTimeoutException();
+            $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
+            $timeoutException->setResultId($response->getResponseText()["resultId"]);
+            throw $timeoutException;
+            
+        } else {
+            $transactionResponse = new TransactionResponse();
+            $transactionResponse->setTxid($response->getResponseText()["payload"]["txid"]);
+            $transactionResponse->setCreatedt($response->getResponseText()["payload"]["createdt"]);
+            $transactionResponse->setSmartcontract($response->getResponseText()["payload"]["smartcontract"]);
+            $transactionResponse->setCreator_msp_id($response->getResponseText()["payload"]["creator_msp_id"]);
+            $transactionResponse->setEndorser_msp_id($response->getResponseText()["payload"]["endorser_msp_id"]);
+            $transactionResponse->setType($response->getResponseText()["payload"]["type"]);
+            $transactionResponse->setRead_set($response->getResponseText()["payload"]["read_set"]);
+            $transactionResponse->setWrite_set($response->getResponseText()["payload"]["write_set"]);
+            return $transactionResponse;
         }
     }
 
