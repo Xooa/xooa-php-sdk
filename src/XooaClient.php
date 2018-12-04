@@ -568,29 +568,6 @@
         }
         
         // Events function
-        
-        /**
-         * Subscribes to certain events
-         *
-         * @param  string $regex
-         * @param  callable $callbackOnEvent
-         *
-         * @return void
-         * 
-         * @throws XooaApiException
-         */
-        public function subscribeEvents($regex = "", callable $callbackOnEvent): void {
-            if (ZEND_THREAD_SAFE) {
-                $eventsApi = new EventsApi();
-                $eventsApi->subscribe($this->socketUrl, $this->apiToken, $regex, $callbackOnEvent);
-            } else {
-                XooaClient::$log->error('Exception occured: Threads not configured.');
-                $apiException = new XooaApiException();
-                $apiException->setErrorCode(500);
-                $apiException->setErrorMessage("Threads not configured.");
-                throw $apiException;
-            }
-        }
 
         /**
          * Subscribes to all events
@@ -604,7 +581,7 @@
         public function subscribeAllEvents(callable $callbackOnEvent): void {
             if (ZEND_THREAD_SAFE) {
                 $eventsApi = new EventsApi();
-                $eventsApi->subscribe($this->socketUrl, $this->apiToken, "", $callbackOnEvent);
+                $eventsApi->subscribe($this->socketUrl, $this->apiToken, $callbackOnEvent);
             } else {
                 XooaClient::$log->error('Exception occured: Threads not configured.');
                 $apiException = new XooaApiException();

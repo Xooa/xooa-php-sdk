@@ -981,31 +981,6 @@ subscribeAllEvents(callable $callbackOnEvent)
 
 ==
 
-### subscribeEvents() {.public}
-
-[](#source-view)
-
-``` {.signature style="margin-right: 54px;"}
-subscribeEvents($regex = "",     callable $callbackOnEvent)
-```
-
-*Subscribes to certain events*
-
-#### Parameters
-
-  ---------- ------------------- --
-  string     \$regex
-  callable   \$callbackOnEvent   
-  ---------- ------------------- --
-
-#### Throws
-
-\\XooaSDK\\exception\\XooaApiException
-: 
-
-
-==
-
 ### unsubscribe() {.public}
 
 [](#source-view)

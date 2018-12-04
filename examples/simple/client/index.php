@@ -438,18 +438,6 @@
         }
 
         /**
-         * To subscribe to certain events, call subscribeEvents method
-         * regex filter and callBackForEvent are required arguments
-         * */
-        try {
-            $log->debug('calling subscribeEvents method with "/putstate/i" and "callBackForEvent" as arguement');
-            $callBackForEvent = 'callBackForEvent';
-            $XooaClient->subscribeEvents('/putstate/i',$callBackForEvent);
-        } catch (Exception $e) {
-            var_dump($e);
-        }
-
-        /**
          * To unsubscribe from any events, call unsubscribe method
          * calling unsubscribe method
          * no arguments are required

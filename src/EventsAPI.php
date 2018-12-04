@@ -30,12 +30,11 @@
          *
          * @param  string $socketUrl
          * @param  string $apiToken
-         * @param  string $regex
          * @param  callable $callbackFn
          *
          * @return void
          */
-        public function subscribe($socketUrl, $apiToken, $regex, callable $callbackFn) {
+        public function subscribe($socketUrl, $apiToken, callable $callbackFn) {
             $this::$subscribed = 1;
             try {
                 $client = new Client(new Version2X($socketUrl.'/subscribe'));
@@ -64,10 +63,7 @@
                     $r = substr($r,2);
                     $r = json_decode($r,true);
                     if(isset($r[1]) && isset($r[1]["eventName"])) {
-                        $eventName = $r[1]["eventName"];
-                        if ($regex == "" || preg_match($regex,$eventName)) {
-                            call_user_func($callbackFn,$r);
-                        }
+                        call_user_func($callbackFn,$r);
                     }
                 }
             }
