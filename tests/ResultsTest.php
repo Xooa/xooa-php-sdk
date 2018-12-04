@@ -20,6 +20,13 @@ use PHPUnit\Framework\TestCase;
 use XooaSDK\XooaClient;
 
 final class resultsTest extends TestCase {
+    private $invokeResultID = "f2dd1f2a-9733-4f55-8be4-b767035da95f";
+    private $queryResultID = "880671f6-b5ba-467e-8e12-ee935ebe9826";
+    private $identityResultID = "e2e98400-bce2-4afa-9794-419d1a02192d";
+    private $deleteIdentityResultID = "20e173ad-53dc-4860-9455-829582a54dac";
+    private $currentBlockResultID = "a5ba06d5-3d7a-474e-90be-68f900ce555e";
+    private $blockResultID = "25c99609-572d-49ed-b904-9d0ae9cc95f9";
+    private $transactionResultID = "83c94909-60b5-453d-8f82-75846cecfeb5";
     protected function setUp()
     {
         $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI");
@@ -30,42 +37,49 @@ final class resultsTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\QueryResponse',
-            $this->xooaClient->getResultForQuery("84c77812-0f9a-49b5-9de4-03816c5476e5")
+            $this->xooaClient->getResultForQuery($queryResultID)
         );
     }
     public function testCanGetResultForInvokeFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\InvokeResponse',
-            $this->xooaClient->getResultForInvoke("c0e1a76a-9a2c-42ec-b6f6-74c3ed3b285f")
+            $this->xooaClient->getResultForInvoke($invokeResultID)
         );
     }
     public function testCanGetResultForIdentityFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getResultForIdentity("130343f9-4212-4971-85a6-e5a451ba3399")
+            $this->xooaClient->getResultForIdentity($identityResultID)
         );
     }
     public function testCanGetResultForDeleteIdentityFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getResultForDeleteIdentity("130343f9-4212-4971-85a6-e5a451ba3399")
+            $this->xooaClient->getResultForDeleteIdentity($deleteIdentityResultID)
         );
     }
     public function testCanGetResultForCurrentBlockFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\CurrentBlockResponse',
-            $this->xooaClient->getResultForCurrentBlock("1ade7805-7137-488f-9cfc-f421f1af971c")
+            $this->xooaClient->getResultForCurrentBlock($currentBlockResultID)
         );
     }
     public function testCanGetResultForBlockByNumberFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\BlockResponse',
-            $this->xooaClient->getResultForBlockByNumber("ae5548c5-b13f-4666-9fbc-e86bdd3ff1a1")
+            $this->xooaClient->getResultForBlockByNumber($blockResultID)
+        );
+    }
+    public function testCanGetResultForTransactionFromValidArguments(): void
+    {
+        $this->assertInstanceOf(
+            'XooaSDK\response\TransactionResponse',
+            $this->xooaClient->getResultForTransaction($transactionResultID)
         );
     }
 }
