@@ -25,7 +25,7 @@ Summary
  [invokeAsync()](#invokeAsync-public)\
  [query()](#query-public)\
  [queryAsync()](#queryAsync-public)\
-[getCurrentIdentity()](#getCurrentIdentity-public)\
+[currentIdentity()](#currentIdentity-public)\
 [getIdentities()](#getIdentities-public)\
 [enrollIdentity()](#enrollIdentity-public)\
 [enrollIdentityAsync()](#enrollIdentityAsync-public)\
@@ -401,12 +401,12 @@ It must pass a function parameter function already defined in your smart contrac
 
 ==
 
-### getCurrentIdentity() {.public}
+### currentIdentity() {.public}
 
 [](#source-view)
 
 ``` {.signature style="margin-right: 54px;"}
-getCurrentIdentity() : \XooaSDK\IdentityResponse
+currentIdentity() : \XooaSDK\IdentityResponse
 ```
 
 *Gets the detail about identity currently set*

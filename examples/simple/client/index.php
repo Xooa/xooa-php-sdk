@@ -26,7 +26,8 @@
     $log->pushHandler(new StreamHandler(__DIR__.'/log.log', "DEBUG"));
 
     $XooaClient = new XooaClient("<Xooa API Token>");
-    $identityId = "";
+    $identityId1 = "";
+    $identityId2 = "";
     $trxnId = "";
     $invokeResultID = "";
     $queryResultID = "";
@@ -108,8 +109,8 @@
          * no argument is required
          * */
         try {
-            $log->debug('calling getCurrentIdentity method');
-            $response = $XooaClient->getCurrentIdentity();
+            $log->debug('calling currentIdentity method');
+            $response = $XooaClient->currentIdentity();
             var_dump($response);
         } catch (Exception $e) {
             var_dump($e);
@@ -200,7 +201,7 @@
          * */
         try {
             $log->debug('calling regenerateIdentityApiToken method with identity ID of identity generated in enrollIdentity method call');
-            $response = $XooaClient->regenerateIdentityApiToken($identityId);
+            $response = $XooaClient->regenerateIdentityApiToken($identityId1);
             var_dump($response);
         } catch (Exception $e) {
             var_dump($e);
@@ -212,7 +213,7 @@
          * */
         try {
             $log->debug('calling regenerateIdentityApiTokenAsync method with identity ID of identity generated in enrollIdentity method call');
-            $response = $XooaClient->regenerateIdentityApiTokenAsync($identityId);
+            $response = $XooaClient->regenerateIdentityApiTokenAsync($identityId1);
             var_dump($response);
         } catch (Exception $e) {
             var_dump($e);
@@ -224,7 +225,7 @@
          * */
         try {
             $log->debug('calling getIdentity method with identity ID of identity generated in enrollIdentity method call');
-            $response = $XooaClient->getIdentity($identityId);
+            $response = $XooaClient->getIdentity($identityId1);
             var_dump($response);
         } catch (Exception $e) {
             var_dump($e);
@@ -236,7 +237,7 @@
          * */
         try {
             $log->debug('calling deleteIdentity method with identity ID of identity generated in enrollIdentity method call');
-            $response = $XooaClient->deleteIdentity($identityId);
+            $response = $XooaClient->deleteIdentity($identityId1);
             var_dump($response);
         } catch (Exception $e) {
             var_dump($e);

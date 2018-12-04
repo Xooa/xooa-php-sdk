@@ -30,7 +30,7 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getCurrentIdentity()
+            $this->xooaClient->currentIdentity()
         );
     }
 

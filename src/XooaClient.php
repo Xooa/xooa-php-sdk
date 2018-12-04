@@ -245,10 +245,10 @@
          * @throws XooaApiException
          * @throws XooaRequestTimeoutException
          */
-        public function getCurrentIdentity() {
-            $this::$log->debug('XooaClient::getCurrentIdentity() called');
+        public function currentIdentity() {
+            $this::$log->debug('XooaClient::currentIdentity() called');
             $identityApi = new IdentityApi();
-            return $identityApi->getCurrentIdentity($this->calloutBaseUrl, $this->apiToken);
+            return $identityApi->currentIdentity($this->calloutBaseUrl, $this->apiToken);
         }
 
         /**

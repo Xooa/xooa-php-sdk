@@ -35,7 +35,7 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getCurrentIdentity($calloutBaseUrl, $apiToken) {
+    public function currentIdentity($calloutBaseUrl, $apiToken) {
         $url = $calloutBaseUrl . "/identities/me";
         return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_GET, null);
     }
