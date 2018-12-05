@@ -36,17 +36,17 @@
      */
     class XooaClient {
         
-        /** @var string Should contain a Xooa URl to send APIs to if not set by User*/
+        /** @var string Should contain a Xooa URL to send APIs to if not set by User*/
         private static  $DEFAULT_CALLOUT_BASE_URL = "https://api.xooa.com/api/v1";
         private static  $DEFAULT_SOCKET_URL = "https://api.xooa.com/";
         
         /** @var string Should contain a Xooa API Token to authorize requests */
         private $apiToken;
 
-        /** @var string Should contain a Xooa URl to send APIs to */
+        /** @var string Should contain a Xooa URL to send APIs to */
         private $calloutBaseUrl;
 
-        /** @var string Should contain a Xooa URl to send socket connection to */
+        /** @var string Should contain a Xooa URL to send socket connection to */
         private $socketUrl;
 
         /** @var string Should contain an object of Xooa SDK webservice */
@@ -86,7 +86,7 @@
         }
 
         /**
-         * Sets the base URl to send calls to
+         * Sets the base URL to send calls to
          *
          * @param  string $calloutBaseUrl
          *
@@ -98,7 +98,7 @@
         }
 
         /**
-         * Gets the base URl to send calls to
+         * Gets the base URL to send calls to
          *
          * @return string
          */
@@ -109,7 +109,7 @@
         /**
          * Sets the logging level for PHP SDK
          *
-         * @param  string $loggingLevel
+         * @param  string $loggingLevel - [DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAl, ALERT, EMERGENCY]
          *
          * @return void
          */
