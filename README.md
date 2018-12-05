@@ -262,8 +262,7 @@ validate() : true
 
 #### Throws
 
-[\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   -   if invalid
+[\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php) -   if invalid
 
 #### Returns
 
@@ -296,9 +295,7 @@ It must pass a function parameter function already defined in your smart contrac
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -328,7 +325,6 @@ It must pass a function parameter function already defined in your smart contrac
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 
 #### Returns
 
@@ -359,9 +355,7 @@ It must pass a function parameter function already defined in your smart contrac
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -391,7 +385,6 @@ It must pass a function parameter function already defined in your smart contrac
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 
 #### Returns
 
@@ -413,9 +406,7 @@ currentIdentity() : \XooaSDK\IdentityResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -438,9 +429,7 @@ getIdentities() : array<\XooaSDK\IdentityResponse>
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -475,9 +464,7 @@ This function provides equivalent functionality to adding new identity manually 
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -509,7 +496,6 @@ This function provides equivalent functionality to adding new identity manually 
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 
 #### Returns
 
@@ -540,9 +526,7 @@ regenerateIdentityApiToken(string  $identityId, integer  $timeout = 3000) : \Xoo
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -570,7 +554,6 @@ regenerateIdentityApiTokenAsync(string  $identityId) : \XooaSDK\PendingTransacti
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 
 #### Returns
 
@@ -601,9 +584,7 @@ getIdentity(string  $identityId, integer  $timeout = 3000) : \XooaSDK\IdentityRe
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -634,9 +615,7 @@ deleteIdentity(string  $identityId, integer  $timeout = 3000) : \XooaSDK\DeleteR
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -664,7 +643,6 @@ deleteIdentityAsync(string  $identityId) : \XooaSDK\PendingTransactionResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 
 #### Returns
 
@@ -686,9 +664,7 @@ getCurrentBlock() : \XooaSDK\CurrentBlockResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -710,7 +686,6 @@ getCurrentBlockAsync() : \XooaSDK\PendingTransactionResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 
 #### Returns
 
@@ -738,9 +713,7 @@ getBlockByNumber(integer  $blockNumber) : \XooaSDK\BlockResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -768,7 +741,6 @@ getBlockByNumberAsync(integer  $blockNumber) : \XooaSDK\PendingTransactionRespon
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 
 #### Returns
 
@@ -796,9 +768,7 @@ getResultForInvoke(string  $resultId) : \XooaSDK\InvokeResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -826,9 +796,7 @@ getResultForQuery(string  $resultId) : \XooaSDK\QueryResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -856,9 +824,7 @@ getResultForIdentity(string  $resultId) : \XooaSDK\IdentityResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -886,9 +852,7 @@ getResultForDeleteIdentity(string  $resultId) : \XooaSDK\DeleteResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -916,9 +880,7 @@ getResultForCurrentBlock(string  $resultId) : \XooaSDK\CurrentBlockResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -946,9 +908,7 @@ getResultForBlockByNumber(string  $resultId) : \XooaSDK\BlockResponse
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 [\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
-:   
 
 #### Returns
 
@@ -975,7 +935,6 @@ subscribeAllEvents(callable $callbackOnEvent)
 #### Throws
 
 [\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
-:   
 
 
 ==
