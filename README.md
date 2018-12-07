@@ -5,6 +5,10 @@ Xooa PHP SDK
 
 This class contains all the public functions available by SDK.
 
+This SDK refers to APIs available for Xooa platform. For more details, refer: <https://api.xooa.com/explorer>
+
+The platform documentation is available at <https://docs.xooa.com>
+
 Summary
 -------
 
