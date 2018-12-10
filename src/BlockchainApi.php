@@ -133,6 +133,7 @@ class BlockchainApi {
             $currentBlockResponse->setCurrentBlockHash($response->getResponseText()["currentBlockHash"]);
             $currentBlockResponse->setPreviousBlockHash($response->getResponseText()["previousBlockHash"]);
             $currentBlockResponse->setBlockNumber($response->getResponseText()["blockNumber"]);
+            XooaClient::$log->info($currentBlockResponse);
             return $currentBlockResponse;
         }
     }
@@ -173,6 +174,7 @@ class BlockchainApi {
             $blockResponse->setPreviousHash($response->getResponseText()["previous_hash"]);
             $blockResponse->setNumberOfTransactions($response->getResponseText()["numberOfTransactions"]);
             $blockResponse->setBlockNumber($response->getResponseText()["blockNumber"]);
+            XooaClient::$log->info($blockResponse);
             return $blockResponse;
         }
     }
@@ -217,6 +219,7 @@ class BlockchainApi {
             $transactionResponse->setType($response->getResponseText()["payload"]["type"]);
             $transactionResponse->setRead_set($response->getResponseText()["payload"]["read_set"]);
             $transactionResponse->setWrite_set($response->getResponseText()["payload"]["write_set"]);
+            XooaClient::$log->info($transactionResponse);
             return $transactionResponse;
         }
     }
@@ -247,6 +250,7 @@ class BlockchainApi {
             $pendingTransactionResponse = new PendingTransactionResponse();
             $pendingTransactionResponse->setResultUrl($response->getResponseText()["resultURL"]);
             $pendingTransactionResponse->setResultId($response->getResponseText()["resultId"]);
+            XooaClient::$log->info($pendingTransactionResponse);
             return $pendingTransactionResponse;
         }
     }

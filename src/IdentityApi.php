@@ -193,6 +193,7 @@ class IdentityApi {
         } else {
             $deleteResponse = new DeleteResponse();
             $deleteResponse->setDeleted($response->getResponseText()["deleted"]);
+            XooaClient::$log->info($deleteResponse);
             return $deleteResponse;
         }
     }
@@ -238,6 +239,7 @@ class IdentityApi {
             $identityResponse->setAttrs($response->getResponseText()["Attrs"]);
             $identityResponse->setAppId($response->getResponseText()["AppId"]);
             $identityResponse->setAppName($response->getResponseText()["AppName"]);
+            XooaClient::$log->info($identityResponse);
             return $identityResponse;
         }
     }
@@ -269,6 +271,7 @@ class IdentityApi {
             $pendingTransactionResponse = new PendingTransactionResponse();
             $pendingTransactionResponse->setResultUrl($response->getResponseText()["resultURL"]);
             $pendingTransactionResponse->setResultId($response->getResponseText()["resultId"]);
+            XooaClient::$log->info($pendingTransactionResponse);
             return $pendingTransactionResponse;
         }
     }
@@ -317,6 +320,7 @@ class IdentityApi {
                 $identityResponse->setAttrs($identity["Attrs"]);
                 array_push($identityArr,$identityResponse);
             }
+            XooaClient::$log->info($identityArr);
             return $identityArr;
         }
     }

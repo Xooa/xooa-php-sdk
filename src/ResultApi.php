@@ -60,8 +60,9 @@ class ResultApi {
             
         } else {
             $invokeResponse = new InvokeResponse();
-            $invokeResponse->setTransactionId($response->getResponseText()["payload"]["txId"]);
-            $invokeResponse->setPayload($response->getResponseText()["payload"]["payload"]);
+            $invokeResponse->setTransactionId($response->getResponseText()["result"]["txId"]);
+            $invokeResponse->setPayload($response->getResponseText()["result"]["payload"]);
+            XooaClient::$log->info($invokeResponse);
             return $invokeResponse;
         }
     }
@@ -98,7 +99,8 @@ class ResultApi {
             
         } else {
             $queryResponse = new QueryResponse();
-            $queryResponse->setPayload($response->getResponseText()["payload"]);
+            $queryResponse->setPayload($response->getResponseText()["result"]["payload"]);
+            XooaClient::$log->info($queryResponse);
             return $queryResponse;
         }
     }
@@ -135,15 +137,16 @@ class ResultApi {
             
         } else {
             $identityResponse = new IdentityResponse();
-            $identityResponse->setIdentityName($response->getResponseText()["IdentityName"]);
-            $identityResponse->setAccessType($response->getResponseText()["Access"]);
-            $identityResponse->setCanManageIdentities($response->getResponseText()["canManageIdentities"]);
-            $identityResponse->setCreatedAt($response->getResponseText()["createdAt"]);
-            $identityResponse->setApiToken($response->getResponseText()["ApiToken"]);
-            $identityResponse->setId($response->getResponseText()["Id"]);
-            $identityResponse->setAttrs($response->getResponseText()["Attrs"]);
-            $identityResponse->setAppId($response->getResponseText()["AppId"]);
-            $identityResponse->setAppName($response->getResponseText()["AppName"]);
+            $identityResponse->setIdentityName($response->getResponseText()["result"]["IdentityName"]);
+            $identityResponse->setAccessType($response->getResponseText()["result"]["Access"]);
+            $identityResponse->setCanManageIdentities($response->getResponseText()["result"]["canManageIdentities"]);
+            $identityResponse->setCreatedAt($response->getResponseText()["result"]["createdAt"]);
+            $identityResponse->setApiToken($response->getResponseText()["result"]["ApiToken"]);
+            $identityResponse->setId($response->getResponseText()["result"]["Id"]);
+            $identityResponse->setAttrs($response->getResponseText()["result"]["Attrs"]);
+            $identityResponse->setAppId($response->getResponseText()["result"]["AppId"]);
+            $identityResponse->setAppName($response->getResponseText()["result"]["AppName"]);
+            XooaClient::$log->info($identityResponse);
             return $identityResponse;
         }
     }
@@ -180,7 +183,8 @@ class ResultApi {
             
         } else {
             $deleteResponse = new DeleteResponse();
-            $deleteResponse->setDeleted($response->getResponseText()["deleted"]);
+            $deleteResponse->setDeleted($response->getResponseText()["result"]["deleted"]);
+            XooaClient::$log->info($deleteResponse);
             return $deleteResponse;
         }
     }
@@ -217,9 +221,10 @@ class ResultApi {
             
         } else {
             $currentBlockResponse = new CurrentBlockResponse();
-            $currentBlockResponse->setCurrentBlockHash($response->getResponseText()["payload"]["currentBlockHash"]);
-            $currentBlockResponse->setPreviousBlockHash($response->getResponseText()["payload"]["previousBlockHash"]);
-            $currentBlockResponse->setBlockNumber($response->getResponseText()["payload"]["blockNumber"]);
+            $currentBlockResponse->setCurrentBlockHash($response->getResponseText()["result"]["currentBlockHash"]);
+            $currentBlockResponse->setPreviousBlockHash($response->getResponseText()["result"]["previousBlockHash"]);
+            $currentBlockResponse->setBlockNumber($response->getResponseText()["result"]["blockNumber"]);
+            XooaClient::$log->info($currentBlockResponse);
             return $currentBlockResponse;
         }
     }
@@ -256,10 +261,11 @@ class ResultApi {
             
         } else {
             $blockResponse = new BlockResponse();
-            $blockResponse->setDataHash($response->getResponseText()["payload"]["data_hash"]);
-            $blockResponse->setPreviousHash($response->getResponseText()["payload"]["previous_hash"]);
-            $blockResponse->setNumberOfTransactions($response->getResponseText()["payload"]["numberOfTransactions"]);
-            $blockResponse->setBlockNumber($response->getResponseText()["payload"]["blockNumber"]);
+            $blockResponse->setDataHash($response->getResponseText()["result"]["data_hash"]);
+            $blockResponse->setPreviousHash($response->getResponseText()["result"]["previous_hash"]);
+            $blockResponse->setNumberOfTransactions($response->getResponseText()["result"]["numberOfTransactions"]);
+            $blockResponse->setBlockNumber($response->getResponseText()["result"]["blockNumber"]);
+            XooaClient::$log->info($blockResponse);
             return $blockResponse;
         }
     }
@@ -296,14 +302,15 @@ class ResultApi {
             
         } else {
             $transactionResponse = new TransactionResponse();
-            $transactionResponse->setTxid($response->getResponseText()["payload"]["txid"]);
-            $transactionResponse->setCreatedt($response->getResponseText()["payload"]["createdt"]);
-            $transactionResponse->setSmartcontract($response->getResponseText()["payload"]["smartcontract"]);
-            $transactionResponse->setCreator_msp_id($response->getResponseText()["payload"]["creator_msp_id"]);
-            $transactionResponse->setEndorser_msp_id($response->getResponseText()["payload"]["endorser_msp_id"]);
-            $transactionResponse->setType($response->getResponseText()["payload"]["type"]);
-            $transactionResponse->setRead_set($response->getResponseText()["payload"]["read_set"]);
-            $transactionResponse->setWrite_set($response->getResponseText()["payload"]["write_set"]);
+            $transactionResponse->setTxid($response->getResponseText()["result"]["txid"]);
+            $transactionResponse->setCreatedt($response->getResponseText()["result"]["createdt"]);
+            $transactionResponse->setSmartcontract($response->getResponseText()["result"]["smartcontract"]);
+            $transactionResponse->setCreator_msp_id($response->getResponseText()["result"]["creator_msp_id"]);
+            $transactionResponse->setEndorser_msp_id($response->getResponseText()["result"]["endorser_msp_id"]);
+            $transactionResponse->setType($response->getResponseText()["result"]["type"]);
+            $transactionResponse->setRead_set($response->getResponseText()["result"]["read_set"]);
+            $transactionResponse->setWrite_set($response->getResponseText()["result"]["write_set"]);
+            XooaClient::$log->info($transactionResponse);
             return $transactionResponse;
         }
     }

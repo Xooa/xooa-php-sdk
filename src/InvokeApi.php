@@ -41,7 +41,6 @@ class InvokeApi {
      */
     public function invoke($calloutBaseUrl, $functionName, $apiToken, $args, $timeout) {
         $url = $calloutBaseUrl . "/invoke/" . $functionName . "?timeout=" . $timeout;
-        // $logger->debug("in invoke method->InvokeApi.php");
         return $this->callInvokeApi($apiToken, $url, $args);
     }
 
@@ -75,7 +74,6 @@ class InvokeApi {
      * @throws XooaRequestTimeoutException
      */
     private function callInvokeApi($apiToken, $url, $args) {
-        // $logger->debug("in callInvokeApi method->InvokeApi.php");
         $callout = new WebService($apiToken);
         $response = $callout->makeQueryOrInvokeCall($url, $args);
 
@@ -97,6 +95,7 @@ class InvokeApi {
             $invokeResponse = new InvokeResponse();
             $invokeResponse->setTransactionId($response->getResponseText()["txId"]);
             $invokeResponse->setPayload($response->getResponseText()["payload"]);
+            XooaClient::$log->info($invokeResponse);
             return $invokeResponse;
         }
     }
@@ -127,6 +126,7 @@ class InvokeApi {
             $pendingTransactionResponse = new PendingTransactionResponse();
             $pendingTransactionResponse->setResultUrl($response->getResponseText()["resultURL"]);
             $pendingTransactionResponse->setResultId($response->getResponseText()["resultId"]);
+            XooaClient::$log->info($pendingTransactionResponse);
             return $pendingTransactionResponse;
         }
     }

@@ -91,6 +91,7 @@ class QueryApi {
         } else {
             $queryResponse = new QueryResponse();
             $queryResponse->setPayload($response->getResponseText()["payload"]);
+            XooaClient::$log->info($queryResponse);
             return $queryResponse;
         }
     }
@@ -121,6 +122,7 @@ class QueryApi {
             $pendingTransactionResponse = new PendingTransactionResponse();
             $pendingTransactionResponse->setResultUrl($response->getResponseText()["resultURL"]);
             $pendingTransactionResponse->setResultId($response->getResponseText()["resultId"]);
+            XooaClient::$log->info($pendingTransactionResponse);
             return $pendingTransactionResponse;
         }
     }

@@ -95,6 +95,13 @@
         public function setUrl($calloutBaseUrl): void {
             $this->calloutBaseUrl = $calloutBaseUrl;
             $this::$log->debug('URL set to '.$calloutBaseUrl);
+
+            $temp = explode("/",$calloutBaseUrl);
+            if(isset($temp[0]) && isset($temp[1]) && isset($temp[2])) {
+                $socketUrl = $temp[0]."/".$temp[1]."/".$temp[2]."/";
+                $this->socketUrl = $socketUrl;
+                $this::$log->debug('Socket URL set to '.$socketUrl);
+            }
         }
 
         /**
@@ -179,7 +186,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function invoke($functionName, $args=[], $timeout=3000) {
-            $this::$log->debug('XooaClient::invoke() called');
+            $this::$log->debug('XooaClient::invoke() called with args: ', $args);
             $invokeApi = new InvokeApi();
             return $invokeApi->invoke($this->calloutBaseUrl, $functionName, $this->apiToken, $args, $timeout);
         }
@@ -195,7 +202,7 @@
          * @throws XooaApiException
          */
         public function invokeAsync($functionName, $args=[]) {
-            $this::$log->debug('XooaClient::invokeAsync() called');
+            $this::$log->debug('XooaClient::invokeAsync() called with args: ', $args);
             $invokeApi = new InvokeApi();
             return $invokeApi->invokeAsync($this->calloutBaseUrl, $functionName, $this->apiToken, $args);
         }
@@ -215,7 +222,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function query($functionName, $args=[], $timeout=3000) {
-            $this::$log->debug('XooaClient::query() called');
+            $this::$log->debug('XooaClient::query() called with args: ', $args);
             $queryApi = new QueryApi();
             return $queryApi->query($this->calloutBaseUrl, $functionName, $this->apiToken, $args, $timeout);
         }
@@ -231,7 +238,7 @@
          * @throws XooaApiException
          */
         public function queryAsync($functionName, $args=[]) {
-            $this::$log->debug('XooaClient::queryAsync() called');
+            $this::$log->debug('XooaClient::queryAsync() called with args: ', $args);
             $queryApi = new QueryApi();
             return $queryApi->queryAsync($this->calloutBaseUrl, $functionName, $this->apiToken, $args);
         }
@@ -277,7 +284,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function enrollIdentity($identityRequest, $timeout=3000) {
-            $this::$log->debug('XooaClient::enrollIdentity() called');
+            $this::$log->debug('XooaClient::enrollIdentity() called with args: ', $identityRequest);
             $identityApi = new IdentityApi();
             return $identityApi->enrollIdentity($this->calloutBaseUrl, $this->apiToken, $identityRequest, $timeout);
         }
@@ -292,7 +299,7 @@
          * @throws XooaApiException
          */
         public function enrollIdentityAsync($identityRequest) {
-            $this::$log->debug('XooaClient::enrollIdentityAsync() called');
+            $this::$log->debug('XooaClient::enrollIdentityAsync() called with args: ', $identityRequest);
             $identityApi = new IdentityApi();
             return $identityApi->enrollIdentityAsync($this->calloutBaseUrl, $this->apiToken, $identityRequest);
         }
@@ -309,7 +316,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function regenerateIdentityApiToken($identityId, $timeout=3000) {
-            $this::$log->debug('XooaClient::regenerateIdentityApiToken() called');
+            $this::$log->debug('XooaClient::regenerateIdentityApiToken() called with args: ', $identityId);
             $identityApi = new IdentityApi();
             return $identityApi->regenerateIdentityApiToken($this->calloutBaseUrl, $this->apiToken, $identityId, $timeout);
         }
@@ -324,7 +331,7 @@
          * @throws XooaApiException
          */
         public function regenerateIdentityApiTokenAsync($identityId) {
-            $this::$log->debug('XooaClient::regenerateIdentityApiTokenAsync() called');
+            $this::$log->debug('XooaClient::regenerateIdentityApiTokenAsync() called with args: ', $identityId);
             $identityApi = new IdentityApi();
             return $identityApi->regenerateIdentityApiTokenAsync($this->calloutBaseUrl, $this->apiToken, $identityId);
         }
@@ -341,7 +348,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getIdentity($identityId, $timeout=3000) {
-            $this::$log->debug('XooaClient::getIdentity() called');
+            $this::$log->debug('XooaClient::getIdentity() called with args: ', $identityId);
             $identityApi = new IdentityApi();
             return $identityApi->getIdentity($this->calloutBaseUrl, $this->apiToken, $identityId, $timeout);
         }
@@ -358,7 +365,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function deleteIdentity($identityId, $timeout=3000) {
-            $this::$log->debug('XooaClient::deleteIdentity() called');
+            $this::$log->debug('XooaClient::deleteIdentity() called with args: ', $identityId);
             $identityApi = new IdentityApi();
             return $identityApi->deleteIdentity($this->calloutBaseUrl, $this->apiToken, $identityId, $timeout);
         }
@@ -373,7 +380,7 @@
          * @throws XooaApiException
          */
         public function deleteIdentityAsync($identityId) {
-            $this::$log->debug('XooaClient::deleteIdentityAsync() called');
+            $this::$log->debug('XooaClient::deleteIdentityAsync() called with args: ', $identityId);
             $identityApi = new IdentityApi();
             return $identityApi->deleteIdentityAsync($this->calloutBaseUrl, $this->apiToken, $identityId);
         }
@@ -418,7 +425,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getBlockByNumber($blockNumber) {
-            $this::$log->debug('XooaClient::getBlockByNumber() called');
+            $this::$log->debug('XooaClient::getBlockByNumber() called with args: ', $blockNumber);
             $blockchainApi = new BlockchainApi();
             return $blockchainApi->getBlockByNumber($this->calloutBaseUrl, $this->apiToken, $blockNumber);
         }
@@ -433,7 +440,7 @@
          * @throws XooaApiException
          */
         public function getBlockByNumberAsync($blockNumber) {
-            $this::$log->debug('XooaClient::getBlockByNumberAsync() called');
+            $this::$log->debug('XooaClient::getBlockByNumberAsync() called with args: ', $blockNumber);
             $blockchainApi = new BlockchainApi();
             return $blockchainApi->getBlockByNumberAsync($this->calloutBaseUrl, $this->apiToken, $blockNumber);
         }
@@ -449,7 +456,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getTransactionByTransactionId($transactionId) {
-            $this::$log->debug('XooaClient::getTransactionByTransactionId() called');
+            $this::$log->debug('XooaClient::getTransactionByTransactionId() called with args: ', $transactionId);
             $blockchainApi = new BlockchainApi();
             return $blockchainApi->getTransactionByTransactionId($this->calloutBaseUrl, $this->apiToken, $transactionId);
         }
@@ -464,7 +471,7 @@
          * @throws XooaApiException
          */
         public function getTransactionByTransactionIdAsync($transactionId) {
-            $this::$log->debug('XooaClient::getTransactionByTransactionIdAsync() called');
+            $this::$log->debug('XooaClient::getTransactionByTransactionIdAsync() called with args: ', $transactionId);
             $blockchainApi = new BlockchainApi();
             return $blockchainApi->getTransactionByTransactionIdAsync($this->calloutBaseUrl, $this->apiToken, $transactionId);
         }
@@ -482,7 +489,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getResultForInvoke($resultId) {
-            $this::$log->debug('XooaClient::getResultForInvoke() called');
+            $this::$log->debug('XooaClient::getResultForInvoke() called with args: ', $resultId);
             $resulApi = new ResultApi();
             return $resulApi->getResultForInvoke($this->calloutBaseUrl, $this->apiToken, $resultId);
         }
@@ -498,7 +505,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getResultForQuery($resultId) {
-            $this::$log->debug('XooaClient::getResultForQuery() called');
+            $this::$log->debug('XooaClient::getResultForQuery() called with args: ', $resultId);
             $resulApi = new ResultApi();
             return $resulApi->getResultForQuery($this->calloutBaseUrl, $this->apiToken, $resultId);
         }
@@ -514,7 +521,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getResultForIdentity($resultId) {
-            $this::$log->debug('XooaClient::getResultForIdentity() called');
+            $this::$log->debug('XooaClient::getResultForIdentity() called with args: ', $resultId);
             $resulApi = new ResultApi();
             return $resulApi->getResultForIdentity($this->calloutBaseUrl, $this->apiToken, $resultId);
         }
@@ -530,7 +537,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getResultForDeleteIdentity($resultId) {
-            $this::$log->debug('XooaClient::getResultForDeleteIdentity() called');
+            $this::$log->debug('XooaClient::getResultForDeleteIdentity() called with args: ', $resultId);
             $resulApi = new ResultApi();
             return $resulApi->getResultForDeleteIdentity($this->calloutBaseUrl, $this->apiToken, $resultId);
         }
@@ -546,7 +553,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getResultForCurrentBlock($resultId) {
-            $this::$log->debug('XooaClient::getResultForCurrentBlock() called');
+            $this::$log->debug('XooaClient::getResultForCurrentBlock() called with args: ', $resultId);
             $resulApi = new ResultApi();
             return $resulApi->getResultForCurrentBlock($this->calloutBaseUrl, $this->apiToken, $resultId);
         }
@@ -562,7 +569,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function getResultForBlockByNumber($resultId) {
-            $this::$log->debug('XooaClient::getResultForBlockByNumber() called');
+            $this::$log->debug('XooaClient::getResultForBlockByNumber() called with args: ', $resultId);
             $resulApi = new ResultApi();
             return $resulApi->getResultForBlockByNumber($this->calloutBaseUrl, $this->apiToken, $resultId);
         }
