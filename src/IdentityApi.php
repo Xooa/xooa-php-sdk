@@ -236,6 +236,8 @@ class IdentityApi {
             $identityResponse->setCreatedAt($response->getResponseText()["createdAt"]);
             $identityResponse->setId($response->getResponseText()["Id"]);
             $identityResponse->setAttrs($response->getResponseText()["Attrs"]);
+            $identityResponse->setAppId($response->getResponseText()["AppId"]);
+            $identityResponse->setAppName($response->getResponseText()["AppName"]);
             return $identityResponse;
         }
     }

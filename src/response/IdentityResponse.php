@@ -31,6 +31,10 @@ class IdentityResponse {
 
     private $attrs;
 
+    private $appId;
+
+    private $appName;
+
     /**
      * getIdentityName
      *
@@ -149,5 +153,45 @@ class IdentityResponse {
      */
     public function setAttrs($attrs): void {
         $this->attrs = $attrs;
+    }
+
+    /**
+     * getAppId
+     *
+     * @return string
+     */
+    public function getAppId(): string {
+        return $this->appId;
+    }
+
+    /**
+     * setAppId
+     *
+     * @param  string $appId
+     *
+     * @return void
+     */
+    public function setAppId($appId): void {
+        $this->appId = $appId;
+    }
+
+    /**
+     * getAppName
+     *
+     * @return string
+     */
+    public function getAppName(): string {
+        return $this->appName;
+    }
+
+    /**
+     * setAppName
+     *
+     * @param  string $appName
+     *
+     * @return void
+     */
+    public function setAppName($appName): void {
+        $this->appName = $appName;
     }
 }
