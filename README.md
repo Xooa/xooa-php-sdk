@@ -1,7 +1,7 @@
 Xooa PHP SDK
 ===================
 
-*This is the base class of PHP SDK.*
+*The official Xooa SDK for PHP to connect with the Xooa Paas.*
 
 This class contains all the public functions available by SDK.
 
