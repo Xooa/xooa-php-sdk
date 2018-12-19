@@ -211,14 +211,14 @@ class BlockchainApi {
             
         } else {
             $transactionResponse = new TransactionResponse();
-            $transactionResponse->setTxid($response->getResponseText()["payload"]["txid"]);
-            $transactionResponse->setCreatedt($response->getResponseText()["payload"]["createdt"]);
-            $transactionResponse->setSmartcontract($response->getResponseText()["payload"]["smartcontract"]);
-            $transactionResponse->setCreator_msp_id($response->getResponseText()["payload"]["creator_msp_id"]);
-            $transactionResponse->setEndorser_msp_id($response->getResponseText()["payload"]["endorser_msp_id"]);
-            $transactionResponse->setType($response->getResponseText()["payload"]["type"]);
-            $transactionResponse->setRead_set($response->getResponseText()["payload"]["read_set"]);
-            $transactionResponse->setWrite_set($response->getResponseText()["payload"]["write_set"]);
+            $transactionResponse->setTxid($response->getResponseText()["txid"]);
+            $transactionResponse->setCreatedt($response->getResponseText()["createdt"]);
+            $transactionResponse->setSmartcontract($response->getResponseText()["smartcontract"]);
+            $transactionResponse->setCreator_msp_id($response->getResponseText()["creator_msp_id"]);
+            $transactionResponse->setEndorser_msp_id($response->getResponseText()["endorser_msp_id"]);
+            $transactionResponse->setType($response->getResponseText()["type"]);
+            $transactionResponse->setRead_set($response->getResponseText()["read_set"]);
+            $transactionResponse->setWrite_set($response->getResponseText()["write_set"]);
             XooaClient::$log->info($transactionResponse);
             return $transactionResponse;
         }
