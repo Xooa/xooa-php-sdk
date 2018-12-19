@@ -27,6 +27,13 @@ Then run a composer update
 php composer.phar update
 ```
 
+## usage
+
+```php
+use XooaSDK\XooaClient;
+$XooaClient = new XooaClient("<Xooa API Token>");
+$XooaClient->validate();
+```
 
 Properties
 ----------
