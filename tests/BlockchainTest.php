@@ -58,7 +58,14 @@ final class BlockchainTest extends TestCase {
         );
     }
 
-    
+    public function testCanGetTransactionByTransactionIdFromValidArguments(): void
+    {
+        $this->assertInstanceOf(
+            'XooaSDK\response\TransactionResponse',
+            $this->xooaClient->getTransactionByTransactionId("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874")
+        );
+    }
+
     public function testCanGetTransactionByTransactionIdAsyncFromValidArguments(): void
     {
         $this->assertInstanceOf(
