@@ -17,6 +17,7 @@
  */
 
 use PHPUnit\Framework\TestCase;
+use XooaSDK\XooaClient;
 
 final class XooaClientTest extends TestCase
 {
