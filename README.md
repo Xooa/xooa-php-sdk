@@ -12,7 +12,7 @@ The platform documentation is available at <https://docs.xooa.com>
 ## Installation
 
 The AWS Service Provider can be installed via [Composer](http://getcomposer.org) by requiring the
-`aws/aws-sdk-php-laravel` package in your project's `composer.json`.
+`xooa/xooa-sdk` package in your project's `composer.json`.
 
 ```json
 {
@@ -27,50 +27,6 @@ Then run a composer update
 php composer.phar update
 ```
 
-Summary
--------
-
-[Methods](#methods)
-
-  * [\_\_construct()](#__construct-public)
-  * [getApiToken()](#getapitoken-public)
-  * [setUrl()](#setUrl-public)
-  * [getUrl()](#getUrl-public)
-  * [setLoggingLevel()](#setLoggingLevel-public)
-  * [setWebService()](#setWebService-public)
-  * [validate()](#validate-public)
-  * [invoke()](#invoke-public)
-  * [invokeAsync()](#invokeAsync-public)
-  * [query()](#query-public)
-  * [queryAsync()](#queryAsync-public)
-  * [currentIdentity()](#currentIdentity-public)
-  * [getIdentities()](#getIdentities-public)
-  * [enrollIdentity()](#enrollIdentity-public)
-  * [enrollIdentityAsync()](#enrollIdentityAsync-public)
-  * [regenerateIdentityApiToken()](#regenerateIdentityApiToken-public)
-  * [regenerateIdentityApiTokenAsync()](#regenerateIdentityApiTokenAsync-public)
-  * [getIdentity()](#getIdentity-public)
-  * [deleteIdentity()](#deleteIdentity-public)
-  * [deleteIdentityAsync()](#deleteIdentityAsync-public)
-  * [getCurrentBlock()](#getCurrentBlock-public)
-  * [getCurrentBlockAsync()](#getCurrentBlockAsync-public)
-  * [getBlockByNumber()](#getBlockByNumber-public)
-  * [getBlockByNumberAsync()](#getBlockByNumberAsync-public)
-  * [getResultForInvoke()](#getResultForInvoke-public)
-  * [getResultForQuery()](#getResultForQuery-public)
-  * [getResultForIdentity()](#getResultForIdentity-public)
-  * [getResultForDeleteIdentity()](#getResultForDeleteIdentity-public)
-  * [getResultForCurrentBlock()](#getResultForCurrentBlock-public)
-  * [getResultForBlockByNumber()](#getResultForBlockByNumber-public)
-
-[Properties](#properties)
-
-  * [\$loggingLevel](#loggingLevel-public)
-  * [\$log](#log-public)
-  * [\$DEFAULT\_CALLOUT\_BASE\_URL](#default_callout_base_url-private)
-  * [\$apiToken](#apiToken-private)
-  * [\$calloutBaseUrl](#calloutBaseUrl-private)
-  * [\$webService](#webService-private)
 
 Properties
 ----------
