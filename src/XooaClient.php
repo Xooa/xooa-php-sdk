@@ -186,7 +186,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function invoke($functionName, $args=[], $timeout=3000) {
-            $this::$log->debug('XooaClient::invoke() called with args: '. $args);
+            $this::$log->debug('XooaClient::invoke() called with args: '. json_encode($args));
             $invokeApi = new InvokeApi();
             return $invokeApi->invoke($this->calloutBaseUrl, $functionName, $this->apiToken, $args, $timeout);
         }
@@ -202,7 +202,7 @@
          * @throws XooaApiException
          */
         public function invokeAsync($functionName, $args=[]) {
-            $this::$log->debug('XooaClient::invokeAsync() called with args: '. $args);
+            $this::$log->debug('XooaClient::invokeAsync() called with args: '. json_encode($args));
             $invokeApi = new InvokeApi();
             return $invokeApi->invokeAsync($this->calloutBaseUrl, $functionName, $this->apiToken, $args);
         }
@@ -222,7 +222,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function query($functionName, $args=[], $timeout=3000) {
-            $this::$log->debug('XooaClient::query() called with args: '. $args);
+            $this::$log->debug('XooaClient::query() called with args: '. json_encode($args));
             $queryApi = new QueryApi();
             return $queryApi->query($this->calloutBaseUrl, $functionName, $this->apiToken, $args, $timeout);
         }
@@ -238,7 +238,7 @@
          * @throws XooaApiException
          */
         public function queryAsync($functionName, $args=[]) {
-            $this::$log->debug('XooaClient::queryAsync() called with args: '. $args);
+            $this::$log->debug('XooaClient::queryAsync() called with args: '. json_encode($args));
             $queryApi = new QueryApi();
             return $queryApi->queryAsync($this->calloutBaseUrl, $functionName, $this->apiToken, $args);
         }
@@ -284,7 +284,7 @@
          * @throws XooaRequestTimeoutException
          */
         public function enrollIdentity($identityRequest, $timeout=3000) {
-            $this::$log->debug('XooaClient::enrollIdentity() called with args: '. $identityRequest);
+            $this::$log->debug('XooaClient::enrollIdentity() called with args: '. json_encode($identityRequest));
             $identityApi = new IdentityApi();
             return $identityApi->enrollIdentity($this->calloutBaseUrl, $this->apiToken, $identityRequest, $timeout);
         }
@@ -299,7 +299,7 @@
          * @throws XooaApiException
          */
         public function enrollIdentityAsync($identityRequest) {
-            $this::$log->debug('XooaClient::enrollIdentityAsync() called with args: '. $identityRequest);
+            $this::$log->debug('XooaClient::enrollIdentityAsync() called with args: '. json_encode($identityRequest));
             $identityApi = new IdentityApi();
             return $identityApi->enrollIdentityAsync($this->calloutBaseUrl, $this->apiToken, $identityRequest);
         }
