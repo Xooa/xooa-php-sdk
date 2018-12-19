@@ -9,6 +9,24 @@ This SDK refers to APIs available for Xooa platform. For more details, refer: <h
 
 The platform documentation is available at <https://docs.xooa.com>
 
+## Installation
+
+The AWS Service Provider can be installed via [Composer](http://getcomposer.org) by requiring the
+`aws/aws-sdk-php-laravel` package in your project's `composer.json`.
+
+```json
+{
+    "require": {
+        "xooa/xooa-sdk": "^1.0"
+    }
+}
+```
+
+Then run a composer update
+```sh
+php composer.phar update
+```
+
 Summary
 -------
 

@@ -1,4 +1,19 @@
 {
+    "name": "xooa/xooa-sdk",
+    "homepage": "https://xooa.com/blockchain",
+    "description": "The official Xooa SDK for PHP to connect with the Xooa Paas.",
+    "keywords": [
+        "Xooa",
+        "Blockchain",
+        "SDK"
+    ],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Arisht Jain",
+            "email": "arisht.jain@xooa.com"
+        }
+    ],
     "require": {
         "monolog/monolog": "^1.23",
         "wisembly/elephant.io": "^3.3",
