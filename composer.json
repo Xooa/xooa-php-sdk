@@ -17,8 +17,7 @@
   ],
   "require": {
     "monolog/monolog": "^1.23",
-    "wisembly/elephant.io": "^3.3",
-    "theseer/phpdox": "0.8.0"
+    "wisembly/elephant.io": "^3.3"
   },
   "autoload": {
     "psr-4": {
@@ -32,6 +31,7 @@
     "sebastian/phpcpd": "^2.0",
     "phploc/phploc": "^2.1",
     "pdepend/pdepend": "^2.1",
+    "theseer/phpdox": "0.11.2",
     "symfony/browser-kit": "^2.7",
     "symfony/css-selector": "^2.7",
     "phing/phing": "^2.12"
