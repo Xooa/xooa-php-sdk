@@ -41,10 +41,10 @@ final class QueryTest extends TestCase {
         $this->assertEquals("args2", $response->getPayload());
     }
 
-    public function testCannotInvokeFromInvalidArguments(): void
+    public function testCannotQueryFromInvalidArguments(): void
     {
         $this->expectException('XooaSDK\exception\XooaApiException');
-        $this->xooaClient->invoke('get');
+        $this->xooaClient->query('get');
     }
 
     public function testCanQueryAsyncFromValidArguments(): void

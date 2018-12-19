@@ -34,14 +34,6 @@ final class IdentitiesTest extends TestCase {
         );
     }
 
-    public function testCanCallGetIdentities(): void
-    {
-        $this->assertInstanceOf(
-            'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getIdentities()
-        );
-    }
-
     public function testCanCallEnrollIdentityFromValidArguments(): void
     {
         $identityRequest = '{
@@ -86,21 +78,21 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->regenerateIdentityApiToken("f8cb2816-0820-452e-87eb-53a86546fabc")
+            $this->xooaClient->regenerateIdentityApiToken("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
         );
     }
     public function testCanCallRegenerateIdentityApiTokenAsyncFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->regenerateIdentityApiTokenAsync("f8cb2816-0820-452e-87eb-53a86546fabc")
+            $this->xooaClient->regenerateIdentityApiTokenAsync("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
         );
     }
     public function testCanCallGetIdentityFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getIdentity("f8cb2816-0820-452e-87eb-53a86546fabc")
+            $this->xooaClient->getIdentity("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
         );
     }
 
