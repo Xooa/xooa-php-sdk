@@ -3,3 +3,4 @@ vendor
 log.logcache.properties
 composer.lock
 composer.phar
+build
