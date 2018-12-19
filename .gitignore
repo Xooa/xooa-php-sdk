@@ -1,3 +1,6 @@
 .DS_STORE
 vendor
-log.log
+log.logcache.properties
+composer.lock
+composer.phar
+build
