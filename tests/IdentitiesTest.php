@@ -22,7 +22,7 @@ use XooaSDK\XooaClient;
 final class IdentitiesTest extends TestCase {
     protected function setUp()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiNThKc0pXMmNXYVNqZWJwIiwiUGFzc3BocmFzZSI6IjA0NDU5YzMxOTczZmZmZTUxMmY4YjE0YmM0YWY4ZTkyIiwiaWF0IjoxNTQzODE0MDg0fQ.53gr7fsngTaWLmcxozpuxCDjDVcScJOCZIdNflZ0fcI");
+        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
         $this->xooaClient->validate();
     }
     
@@ -31,14 +31,6 @@ final class IdentitiesTest extends TestCase {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
             $this->xooaClient->currentIdentity()
-        );
-    }
-
-    public function testCanCallGetIdentities(): void
-    {
-        $this->assertInstanceOf(
-            'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getIdentities()
         );
     }
 
@@ -86,21 +78,21 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->regenerateIdentityApiToken("f8cb2816-0820-452e-87eb-53a86546fabc")
+            $this->xooaClient->regenerateIdentityApiToken("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
         );
     }
     public function testCanCallRegenerateIdentityApiTokenAsyncFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->regenerateIdentityApiTokenAsync("f8cb2816-0820-452e-87eb-53a86546fabc")
+            $this->xooaClient->regenerateIdentityApiTokenAsync("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
         );
     }
     public function testCanCallGetIdentityFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getIdentity("f8cb2816-0820-452e-87eb-53a86546fabc")
+            $this->xooaClient->getIdentity("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
         );
     }
 
