@@ -141,7 +141,6 @@ class ResultApi {
             $identityResponse->setAccessType($response->getResponseText()["result"]["Access"]);
             $identityResponse->setCanManageIdentities($response->getResponseText()["result"]["canManageIdentities"]);
             $identityResponse->setCreatedAt($response->getResponseText()["result"]["createdAt"]);
-            $identityResponse->setApiToken($response->getResponseText()["result"]["ApiToken"]);
             $identityResponse->setId($response->getResponseText()["result"]["Id"]);
             $identityResponse->setAttrs($response->getResponseText()["result"]["Attrs"]);
             $identityResponse->setAppId($response->getResponseText()["result"]["AppId"]);

@@ -318,6 +318,8 @@ class IdentityApi {
                 $identityResponse->setCreatedAt($identity["createdAt"]);
                 $identityResponse->setId($identity["Id"]);
                 $identityResponse->setAttrs($identity["Attrs"]);
+                $identityResponse->setAppId($identity["AppId"]);
+                $identityResponse->setAppName($identity["AppName"]);
                 array_push($identityArr,$identityResponse);
             }
             XooaClient::$log->info($identityArr);
