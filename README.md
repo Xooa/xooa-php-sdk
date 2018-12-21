@@ -905,6 +905,33 @@ getResultForBlockByNumber(string  $resultId) : \XooaSDK\BlockResponse
 
 ==
 
+### getResultForTransaction() {.public}
+
+[](#source-view)
+
+``` {.signature style="margin-right: 54px;"}
+getResultForTransaction(string  $resultId) : \XooaSDK\TransactionResponse
+```
+
+*This function returns the result of previously submitted transaction pending request*
+
+#### Parameters
+
+  -------- ------------ --
+  string   \$resultId   
+  -------- ------------ --
+
+#### Throws
+
+[\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
+[\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
+
+#### Returns
+
+[\\XooaSDK\\TransactionResponse](src/response/TransactionResponse.php)
+
+==
+
 ### subscribeAllEvents() {.public}
 
 [](#source-view)

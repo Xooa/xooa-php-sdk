@@ -574,6 +574,22 @@
             return $resulApi->getResultForBlockByNumber($this->calloutBaseUrl, $this->apiToken, $resultId);
         }
         
+        /**
+         * Gets the result for transaction pending request
+         *
+         * @param  string $resultId
+         *
+         * @return TransactionResponse
+         * 
+         * @throws XooaApiException
+         * @throws XooaRequestTimeoutException
+         */
+        public function getResultForTransaction($resultId) {
+            $this::$log->debug('XooaClient::getResultForTransaction() called with args: '. $resultId);
+            $resulApi = new ResultApi();
+            return $resulApi->getResultForTransaction($this->calloutBaseUrl, $this->apiToken, $resultId);
+        }
+        
         // Events function
 
         /**

@@ -25,6 +25,7 @@ use XooaSDK\response\IdentityResponse;
 use XooaSDK\response\CurrentBlockResponse;
 use XooaSDK\response\BlockResponse;
 use XooaSDK\response\DeleteResponse;
+use XooaSDK\response\TransactionResponse;
 use XooaSDK\WebService;
 
 class ResultApi {
