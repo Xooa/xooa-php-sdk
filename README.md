@@ -1,3 +1,7 @@
+
+[![Build Status](http://3.84.45.239:8080/buildStatus/icon?job=xooa-php-sdk-1)](http://3.84.45.239:8080/job/xooa-php-sdk-1/)
+
+
 Xooa PHP SDK
 ===================
 
