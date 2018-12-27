@@ -51,10 +51,13 @@ final class BlockchainTest extends TestCase {
 
     public function testCanGetBlockByNumberFromValidArguments(): void
     {
+        $response = self::$xooaClient->getBlockByNumber(1);
         $this->assertInstanceOf(
             'XooaSDK\response\BlockResponse',
-            self::$xooaClient->getBlockByNumber(1)
+            $response
         );
+        $this->assertEquals(1, $response->getBlockNumber());
+        $this->assertEquals(1, $response->getNumberOfTransactions());
     }
 
     /**
@@ -93,10 +96,12 @@ final class BlockchainTest extends TestCase {
     {
         $response = self::$xooaClient->invoke('set',["args1","args2"]);
         $trxnId = $response->getTransactionId();
+        $response1 = self::$xooaClient->getTransactionByTransactionId($trxnId);
         $this->assertInstanceOf(
             'XooaSDK\response\TransactionResponse',
-            self::$xooaClient->getTransactionByTransactionId($trxnId)
+            $response1
         );
+        $this->assertEquals($trxnId, $response1->getTxid());
         return $trxnId;
     }
 

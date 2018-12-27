@@ -22,6 +22,7 @@ use XooaSDK\XooaClient;
 final class XooaClientTest extends TestCase
 {
     private static $xooaClient;
+    private static $xooaClient1;
     public static function setUpBeforeClass()
     {
         self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
@@ -35,6 +36,15 @@ final class XooaClientTest extends TestCase
             true,
             self::$xooaClient->validate()
         );
+    }
+
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotValidateFromInvalidArguments(): void
+    {
+        self::$xooaClient1 = new XooaClient("abc");
+        self::$xooaClient1->validate();
     }
 
     public function testCanGetApiTokenFromValidArguments(): void

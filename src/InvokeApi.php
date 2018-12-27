@@ -118,8 +118,8 @@ class InvokeApi {
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
             $apiException = new XooaApiException();
-            $apiException->setErrorCode($response.getResponseCode());
-            $apiException->setErrorMessage($response.getResponseText());
+            $apiException->setErrorCode($response->getResponseCode());
+            $apiException->setErrorMessage($response->getResponseText());
 
             throw $apiException;
         } else {

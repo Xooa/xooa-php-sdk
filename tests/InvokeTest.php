@@ -20,11 +20,17 @@ use PHPUnit\Framework\TestCase;
 use XooaSDK\XooaClient;
 
 final class InvokeTest extends TestCase {
+    
     private static $xooaClient;
+    private static $xooaClient1;
+
     public static function setUpBeforeClass()
     {
         self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
         self::$xooaClient->validate();
+        self::$xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient1->validate();
+        self::$xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
     }
     
     public function testCanInvokeFromValidArguments()
@@ -57,6 +63,14 @@ final class InvokeTest extends TestCase {
             'XooaSDK\response\PendingTransactionResponse',
             self::$xooaClient->invokeAsync('set',["args1","args2"])
         );
+    }
+
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotInvokeAsyncFromInvalidApiToken(): void
+    {
+        self::$xooaClient1->invokeAsync('set',["args1"]);
     }
 }
 
