@@ -21,24 +21,26 @@ use XooaSDK\XooaClient;
 
 final class resultsTest extends TestCase {
 
-    protected function setUp()
+    private static $xooaClient;
+    private static $xooaClient1;
+    public static function setUpBeforeClass()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient->validate();
+        self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient->validate();
 
-        $this->xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient1->validate();
-        $this->xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
+        self::$xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient1->validate();
+        self::$xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
     }
     
     public function testCanGetResultForQueryFromValidArguments()
     {
-        $response = $this->xooaClient->queryAsync('get',["args1"]);
+        $response = self::$xooaClient->queryAsync('get',["args1"]);
         $queryResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\QueryResponse',
-            $this->xooaClient->getResultForQuery($queryResultID)
+            self::$xooaClient->getResultForQuery($queryResultID)
         );
         return $queryResultID;
     }
@@ -49,17 +51,17 @@ final class resultsTest extends TestCase {
      */
     public function testCannotGetResultForQueryFromInvalidApiKey($queryResultID): void
     {
-        $this->xooaClient1->getResultForQuery($queryResultID);
+        self::$xooaClient1->getResultForQuery($queryResultID);
     }
 
     public function testCanGetResultForInvokeFromValidArguments()
     {
-        $response = $this->xooaClient->invokeAsync('set',["args1","args2"]);
+        $response = self::$xooaClient->invokeAsync('set',["args1","args2"]);
         $invokeResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\InvokeResponse',
-            $this->xooaClient->getResultForInvoke($invokeResultID)
+            self::$xooaClient->getResultForInvoke($invokeResultID)
         );
         return $invokeResultID;
     }
@@ -70,7 +72,7 @@ final class resultsTest extends TestCase {
      */
     public function testCannotGetResultForInvokeFromInvalidApiKey($invokeResultID): void
     {
-        $this->xooaClient1->getResultForInvoke($invokeResultID);
+        self::$xooaClient1->getResultForInvoke($invokeResultID);
     }
 
     public function testCanGetResultForIdentityFromValidArguments()
@@ -87,12 +89,12 @@ final class resultsTest extends TestCase {
             ],
             "canManageIdentities": true
             }';
-        $response = $this->xooaClient->enrollIdentityAsync($identityRequest);
+        $response = self::$xooaClient->enrollIdentityAsync($identityRequest);
         $identityResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getResultForIdentity($identityResultID)
+            self::$xooaClient->getResultForIdentity($identityResultID)
         );
         return $identityResultID;
     }
@@ -103,7 +105,7 @@ final class resultsTest extends TestCase {
      */
     public function testCannotGetResultForIdentityFromInvalidApiKey($identityResultID): void
     {
-        $this->xooaClient1->getResultForIdentity($identityResultID);
+        self::$xooaClient1->getResultForIdentity($identityResultID);
     }
 
     /**
@@ -111,14 +113,14 @@ final class resultsTest extends TestCase {
      */
     public function testCanGetResultForDeleteIdentityFromValidArguments($identityResultID)
     {
-        $response = $this->xooaClient->getResultForIdentity($identityResultID);
+        $response = self::$xooaClient->getResultForIdentity($identityResultID);
         $identityId = $response->getId();
-        $response = $this->xooaClient->deleteIdentityAsync($identityId);
+        $response = self::$xooaClient->deleteIdentityAsync($identityId);
         $deleteIdentityResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\DeleteResponse',
-            $this->xooaClient->getResultForDeleteIdentity($deleteIdentityResultID)
+            self::$xooaClient->getResultForDeleteIdentity($deleteIdentityResultID)
         );
         return $deleteIdentityResultID;
     }
@@ -129,17 +131,17 @@ final class resultsTest extends TestCase {
      */
     public function testCannotGetResultForDeleteIdentityFromInvalidApiKey($deleteIdentityResultID): void
     {
-        $this->xooaClient1->getResultForDeleteIdentity($deleteIdentityResultID);
+        self::$xooaClient1->getResultForDeleteIdentity($deleteIdentityResultID);
     }
 
     public function testCanGetResultForCurrentBlockFromValidArguments()
     {
-        $response = $this->xooaClient->getCurrentBlockAsync();
+        $response = self::$xooaClient->getCurrentBlockAsync();
         $currentBlockResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\CurrentBlockResponse',
-            $this->xooaClient->getResultForCurrentBlock($currentBlockResultID)
+            self::$xooaClient->getResultForCurrentBlock($currentBlockResultID)
         );
         return $currentBlockResultID;
     }
@@ -150,17 +152,17 @@ final class resultsTest extends TestCase {
      */
     public function testCannotGetResultForCurrentBlockFromInvalidApiKey($currentBlockResultID): void
     {
-        $this->xooaClient1->getResultForCurrentBlock($currentBlockResultID);
+        self::$xooaClient1->getResultForCurrentBlock($currentBlockResultID);
     }
 
     public function testCanGetResultForBlockByNumberFromValidArguments()
     {
-        $response = $this->xooaClient->getBlockByNumberAsync(1);
+        $response = self::$xooaClient->getBlockByNumberAsync(1);
         $blockResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\BlockResponse',
-            $this->xooaClient->getResultForBlockByNumber($blockResultID)
+            self::$xooaClient->getResultForBlockByNumber($blockResultID)
         );
         return $blockResultID;
     }
@@ -171,7 +173,7 @@ final class resultsTest extends TestCase {
      */
     public function testCannotGetResultForBlockByNumberFromInvalidApiKey($blockResultID): void
     {
-        $this->xooaClient1->getResultForBlockByNumber($blockResultID);
+        self::$xooaClient1->getResultForBlockByNumber($blockResultID);
     }
 
     /**
@@ -179,14 +181,14 @@ final class resultsTest extends TestCase {
      */
     public function testCanGetResultForTransactionFromValidArguments($invokeResultID)
     {
-        $response = $this->xooaClient->getResultForInvoke($invokeResultID);
+        $response = self::$xooaClient->getResultForInvoke($invokeResultID);
         $trxnId = $response->getTransactionId();
-        $response = $this->xooaClient->getTransactionByTransactionIdAsync($trxnId);
+        $response = self::$xooaClient->getTransactionByTransactionIdAsync($trxnId);
         $transactionResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\TransactionResponse',
-            $this->xooaClient->getResultForTransaction($transactionResultID)
+            self::$xooaClient->getResultForTransaction($transactionResultID)
         );
         return $transactionResultID;
     }
@@ -197,7 +199,7 @@ final class resultsTest extends TestCase {
      */
     public function testCannotGetResultForTransactionFromInvalidApiKey($transactionResultID): void
     {
-        $this->xooaClient1->getResultForTransaction($transactionResultID);
+        self::$xooaClient1->getResultForTransaction($transactionResultID);
     }
 }
 

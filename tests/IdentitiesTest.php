@@ -21,21 +21,24 @@ use XooaSDK\XooaClient;
 
 final class IdentitiesTest extends TestCase {
 
-    protected function setUp()
+    private static $xooaClient;
+    private static $xooaClient1;
+    public static function setUpBeforeClass()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient->validate();
+        self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient->validate();
 
-        $this->xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient1->validate();
-        $this->xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
+        self::$xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient1->validate();
+        self::$xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
     }
     
     public function testCanCallCurrentIdentity(): void
     {
+        sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->currentIdentity()
+            self::$xooaClient->currentIdentity()
         );
     }
 
@@ -44,12 +47,12 @@ final class IdentitiesTest extends TestCase {
      */
     public function testCannotCallCurrentIdentityFromInvalidApiKey(): void
     {
-        $this->xooaClient1->currentIdentity();
+        self::$xooaClient1->currentIdentity();
     }
 
     public function testCanCallGetIdentities(): void
     {
-        $identities = $this->xooaClient->getIdentities();
+        $identities = self::$xooaClient->getIdentities();
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
             $identities[0]
@@ -61,7 +64,7 @@ final class IdentitiesTest extends TestCase {
      */
     public function testCannotCallGetIdentitiesFromInvalidApiKey(): void
     {
-        $identities = $this->xooaClient1->getIdentities();
+        $identities = self::$xooaClient1->getIdentities();
     }
 
     public function testCanCallEnrollIdentityFromValidArguments()
@@ -78,7 +81,7 @@ final class IdentitiesTest extends TestCase {
             ],
             "canManageIdentities": true
             }';
-        $response = $this->xooaClient->enrollIdentity($identityRequest);
+        $response = self::$xooaClient->enrollIdentity($identityRequest);
         $identityId1 = $response->getId();
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
@@ -101,14 +104,14 @@ final class IdentitiesTest extends TestCase {
             ],
             "canManageIdentities": true
             }';
-        $response = $this->xooaClient->enrollIdentityAsync($identityRequest);
+        $response = self::$xooaClient->enrollIdentityAsync($identityRequest);
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
             $response
         );
         sleep(5);
         $identityResultID = $response->getResultId();
-        $response = $this->xooaClient->getResultForIdentity($identityResultID);
+        $response = self::$xooaClient->getResultForIdentity($identityResultID);
         $identityId2 = $response->getId();
         return $identityId2;
     }
@@ -120,7 +123,7 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->regenerateIdentityApiToken($identityId1)
+            self::$xooaClient->regenerateIdentityApiToken($identityId1)
         );
     }
 
@@ -131,7 +134,7 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->regenerateIdentityApiTokenAsync($identityId1)
+            self::$xooaClient->regenerateIdentityApiTokenAsync($identityId1)
         );
     }
 
@@ -141,7 +144,7 @@ final class IdentitiesTest extends TestCase {
      */
     public function testCannotCallRegenerateIdentityApiTokenAsyncFromInvalidApiKey($identityId1): void
     {
-        var_dump($this->xooaClient1->regenerateIdentityApiTokenAsync($identityId1));
+        self::$xooaClient1->regenerateIdentityApiTokenAsync($identityId1);
     }
 
     /**
@@ -151,7 +154,7 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getIdentity($identityId1)
+            self::$xooaClient->getIdentity($identityId1)
         );
     }
 
@@ -162,7 +165,7 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\DeleteResponse',
-            $this->xooaClient->deleteIdentity($identityId1)
+            self::$xooaClient->deleteIdentity($identityId1)
         );
     }
 
@@ -172,7 +175,7 @@ final class IdentitiesTest extends TestCase {
      */
     public function testCannotCallDeleteIdentityFromInvaliApiToken($identityId1): void
     {
-        $this->xooaClient1->deleteIdentity($identityId1);
+        self::$xooaClient1->deleteIdentity($identityId1);
     }
 
     /**
@@ -182,7 +185,7 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->deleteIdentityAsync($identityId2)
+            self::$xooaClient->deleteIdentityAsync($identityId2)
         );
     }
 }

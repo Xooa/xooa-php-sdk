@@ -20,21 +20,24 @@ use PHPUnit\Framework\TestCase;
 use XooaSDK\XooaClient;
 
 final class BlockchainTest extends TestCase {
-    protected function setUp()
+    private static $xooaClient;
+    private static $xooaClient1;
+    public static function setUpBeforeClass()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient->validate();
+        self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient->validate();
 
-        $this->xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient1->validate();
-        $this->xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
+        self::$xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient1->validate();
+        self::$xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
     }
     
     public function testCanGetCurrentBlock(): void
     {
+        sleep(5);
         $this->assertInstanceOf(
             'XooaSDK\response\CurrentBlockResponse',
-            $this->xooaClient->getCurrentBlock()
+            self::$xooaClient->getCurrentBlock()
         );
     }
 
@@ -43,14 +46,14 @@ final class BlockchainTest extends TestCase {
      */
     public function testCannotGetCurrentBlockFromInvalidApiKey(): void
     {
-        $this->xooaClient1->getCurrentBlock();
+        self::$xooaClient1->getCurrentBlock();
     }
 
     public function testCanGetBlockByNumberFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\BlockResponse',
-            $this->xooaClient->getBlockByNumber(1)
+            self::$xooaClient->getBlockByNumber(1)
         );
     }
 
@@ -59,14 +62,14 @@ final class BlockchainTest extends TestCase {
      */
     public function testCannotGetBlockByNumberFromInvalidApiKey(): void
     {
-        $this->xooaClient1->getBlockByNumber(1);
+        self::$xooaClient1->getBlockByNumber(1);
     }
 
     public function testCanGetCurrentBlockAsync(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->getCurrentBlockAsync()
+            self::$xooaClient->getCurrentBlockAsync()
         );
     }
 
@@ -74,7 +77,7 @@ final class BlockchainTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->getBlockByNumberAsync(1)
+            self::$xooaClient->getBlockByNumberAsync(1)
         );
     }
 
@@ -83,16 +86,16 @@ final class BlockchainTest extends TestCase {
      */
     public function testCannotGetBlockByNumberAsyncFromInvalidApiKey(): void
     {
-        $this->xooaClient1->getBlockByNumberAsync(1);
+        self::$xooaClient1->getBlockByNumberAsync(1);
     }
 
     public function testCanGetTransactionByTransactionIdFromValidArguments()
     {
-        $response = $this->xooaClient->invoke('set',["args1","args2"]);
+        $response = self::$xooaClient->invoke('set',["args1","args2"]);
         $trxnId = $response->getTransactionId();
         $this->assertInstanceOf(
             'XooaSDK\response\TransactionResponse',
-            $this->xooaClient->getTransactionByTransactionId($trxnId)
+            self::$xooaClient->getTransactionByTransactionId($trxnId)
         );
         return $trxnId;
     }
@@ -103,7 +106,7 @@ final class BlockchainTest extends TestCase {
      */
     public function testCannotGetTransactionByTransactionIdFromInvalidApiKey($trxnId): void
     {
-        $this->xooaClient1->getTransactionByTransactionId($trxnId);
+        self::$xooaClient1->getTransactionByTransactionId($trxnId);
     }
 
     /**
@@ -113,7 +116,7 @@ final class BlockchainTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->getTransactionByTransactionIdAsync($trxnId)
+            self::$xooaClient->getTransactionByTransactionIdAsync($trxnId)
         );
     }
 }

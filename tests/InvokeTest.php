@@ -20,15 +20,17 @@ use PHPUnit\Framework\TestCase;
 use XooaSDK\XooaClient;
 
 final class InvokeTest extends TestCase {
-    protected function setUp()
+    private static $xooaClient;
+    public static function setUpBeforeClass()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient->validate();
+        self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient->validate();
     }
     
     public function testCanInvokeFromValidArguments()
     {
-        $response = $this->xooaClient->invoke('set',["args1","args2"]);
+        sleep(5);
+        $response = self::$xooaClient->invoke('set',["args1","args2"]);
         $this->assertInstanceOf(
             'XooaSDK\response\InvokeResponse',
             $response
@@ -37,7 +39,7 @@ final class InvokeTest extends TestCase {
 
     public function testInvokeReturnsFromValidArguments()
     {   
-        $response = $this->xooaClient->invoke('set',["args1","args2"]);
+        $response = self::$xooaClient->invoke('set',["args1","args2"]);
         $this->assertEquals("", $response->getPayload());
     }
 
@@ -46,14 +48,14 @@ final class InvokeTest extends TestCase {
      */
     public function testCannotInvokeFromInvalidArguments(): void
     {
-        $this->xooaClient->invoke('set',["args1"]);
+        self::$xooaClient->invoke('set',["args1"]);
     }
 
     public function testCanInvokeAsyncFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->invokeAsync('set',["args1","args2"])
+            self::$xooaClient->invokeAsync('set',["args1","args2"])
         );
     }
 }
