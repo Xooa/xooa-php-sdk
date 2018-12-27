@@ -48,7 +48,7 @@ class BlockchainApi {
      * @throws XooaApiException
      */
     public function getCurrentBlockAsync($calloutBaseUrl, $apiToken) {
-        $url = $calloutBaseUrl . "/block/current/?async=true";
+        $url = $calloutBaseUrl . "/block/current?async=true";
         return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
     }
 
@@ -77,7 +77,7 @@ class BlockchainApi {
      * @throws XooaApiException
      */
     public function getBlockByNumberAsync($calloutBaseUrl, $apiToken, $blockNumber) {
-        $url = $calloutBaseUrl . "/block/" . $blockNumber . "/?async=true";
+        $url = $calloutBaseUrl . "/block/" . $blockNumber . "?async=true";
         return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
     }
 
@@ -106,7 +106,7 @@ class BlockchainApi {
      * @throws XooaApiException
      */
     public function getTransactionByTransactionIdAsync($calloutBaseUrl, $apiToken, $transactionId) {
-        $url = $calloutBaseUrl . "/transactions/" . $transactionId . "/?async=true";
+        $url = $calloutBaseUrl . "/transactions/" . $transactionId . "?async=true";
         return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
     }
 

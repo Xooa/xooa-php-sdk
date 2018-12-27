@@ -24,6 +24,10 @@ final class BlockchainTest extends TestCase {
     {
         $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
         $this->xooaClient->validate();
+
+        $this->xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        $this->xooaClient1->validate();
+        $this->xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
     }
     
     public function testCanGetCurrentBlock(): void
@@ -34,12 +38,28 @@ final class BlockchainTest extends TestCase {
         );
     }
 
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotGetCurrentBlockFromInvalidApiKey(): void
+    {
+        $this->xooaClient1->getCurrentBlock();
+    }
+
     public function testCanGetBlockByNumberFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\BlockResponse',
             $this->xooaClient->getBlockByNumber(1)
         );
+    }
+
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotGetBlockByNumberFromInvalidApiKey(): void
+    {
+        $this->xooaClient1->getBlockByNumber(1);
     }
 
     public function testCanGetCurrentBlockAsync(): void
@@ -58,19 +78,42 @@ final class BlockchainTest extends TestCase {
         );
     }
 
-    public function testCanGetTransactionByTransactionIdFromValidArguments(): void
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotGetBlockByNumberAsyncFromInvalidApiKey(): void
     {
-        $this->assertInstanceOf(
-            'XooaSDK\response\TransactionResponse',
-            $this->xooaClient->getTransactionByTransactionId("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874")
-        );
+        $this->xooaClient1->getBlockByNumberAsync(1);
     }
 
-    public function testCanGetTransactionByTransactionIdAsyncFromValidArguments(): void
+    public function testCanGetTransactionByTransactionIdFromValidArguments()
+    {
+        $response = $this->xooaClient->invoke('set',["args1","args2"]);
+        $trxnId = $response->getTransactionId();
+        $this->assertInstanceOf(
+            'XooaSDK\response\TransactionResponse',
+            $this->xooaClient->getTransactionByTransactionId($trxnId)
+        );
+        return $trxnId;
+    }
+
+    /**
+     * @depends testCanGetTransactionByTransactionIdFromValidArguments
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotGetTransactionByTransactionIdFromInvalidApiKey($trxnId): void
+    {
+        $this->xooaClient1->getTransactionByTransactionId($trxnId);
+    }
+
+    /**
+     * @depends testCanGetTransactionByTransactionIdFromValidArguments
+     */
+    public function testCanGetTransactionByTransactionIdAsyncFromValidArguments($trxnId): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->getTransactionByTransactionIdAsync("9d064180b1ec2a8e16168e4b372d32dc0bb1d1d9ed1c6d9182aa033367412874")
+            $this->xooaClient->getTransactionByTransactionIdAsync($trxnId)
         );
     }
 }

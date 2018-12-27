@@ -20,10 +20,15 @@ use PHPUnit\Framework\TestCase;
 use XooaSDK\XooaClient;
 
 final class IdentitiesTest extends TestCase {
+
     protected function setUp()
     {
         $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
         $this->xooaClient->validate();
+
+        $this->xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        $this->xooaClient1->validate();
+        $this->xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
     }
     
     public function testCanCallCurrentIdentity(): void
@@ -34,7 +39,32 @@ final class IdentitiesTest extends TestCase {
         );
     }
 
-    public function testCanCallEnrollIdentityFromValidArguments(): void
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotCallCurrentIdentityFromInvalidApiKey(): void
+    {
+        $this->xooaClient1->currentIdentity();
+    }
+
+    public function testCanCallGetIdentities(): void
+    {
+        $identities = $this->xooaClient->getIdentities();
+        $this->assertInstanceOf(
+            'XooaSDK\response\IdentityResponse',
+            $identities[0]
+        );
+    }
+
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotCallGetIdentitiesFromInvalidApiKey(): void
+    {
+        $identities = $this->xooaClient1->getIdentities();
+    }
+
+    public function testCanCallEnrollIdentityFromValidArguments()
     {
         $identityRequest = '{
             "IdentityName": "string",
@@ -48,13 +78,16 @@ final class IdentitiesTest extends TestCase {
             ],
             "canManageIdentities": true
             }';
+        $response = $this->xooaClient->enrollIdentity($identityRequest);
+        $identityId1 = $response->getId();
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->enrollIdentity($identityRequest)
+            $response
         );
+        return $identityId1;
     }
 
-    public function testCanCallEnrollIdentityAsyncFromValidArguments(): void
+    public function testCanCallEnrollIdentityAsyncFromValidArguments()
     {
         $identityRequest = '{
             "IdentityName": "string",
@@ -68,48 +101,90 @@ final class IdentitiesTest extends TestCase {
             ],
             "canManageIdentities": true
             }';
+        $response = $this->xooaClient->enrollIdentityAsync($identityRequest);
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->enrollIdentityAsync($identityRequest)
+            $response
         );
+        sleep(5);
+        $identityResultID = $response->getResultId();
+        $response = $this->xooaClient->getResultForIdentity($identityResultID);
+        $identityId2 = $response->getId();
+        return $identityId2;
     }
 
-    public function testCanCallRegenerateIdentityApiTokenFromValidArguments(): void
+    /**
+     * @depends testCanCallEnrollIdentityFromValidArguments
+     */
+    public function testCanCallRegenerateIdentityApiTokenFromValidArguments($identityId1): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->regenerateIdentityApiToken("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
-        );
-    }
-    public function testCanCallRegenerateIdentityApiTokenAsyncFromValidArguments(): void
-    {
-        $this->assertInstanceOf(
-            'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->regenerateIdentityApiTokenAsync("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
-        );
-    }
-    public function testCanCallGetIdentityFromValidArguments(): void
-    {
-        $this->assertInstanceOf(
-            'XooaSDK\response\IdentityResponse',
-            $this->xooaClient->getIdentity("3487014f-aa4f-41a6-97fb-1e3c2d4d4311")
+            $this->xooaClient->regenerateIdentityApiToken($identityId1)
         );
     }
 
-    // public function testCanCallDeleteIdentityFromValidArguments(): void
-    // {
-    //     $this->assertInstanceOf(
-    //         DeleteResponse::class,
-    //         $this->xooaClient->deleteIdentity("d1fe7d7e-d66b-4fef-8c95-2c67f4879f09")
-    //     );
-    // }
-    // public function testCanCallDeleteIdentityAsyncFromValidArguments(): void
-    // {
-    //     $this->assertInstanceOf(
-    //         'XooaSDK\response\PendingTransactionResponse',
-    //         $this->xooaClient->deleteIdentityAsync("8f0b7065-4534-475f-9b9a-972e395f42e9")
-    //     );
-    // }
+    /**
+     * @depends testCanCallEnrollIdentityFromValidArguments
+     */
+    public function testCanCallRegenerateIdentityApiTokenAsyncFromValidArguments($identityId1): void
+    {
+        $this->assertInstanceOf(
+            'XooaSDK\response\PendingTransactionResponse',
+            $this->xooaClient->regenerateIdentityApiTokenAsync($identityId1)
+        );
+    }
+
+    /**
+     * @depends testCanCallEnrollIdentityFromValidArguments
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotCallRegenerateIdentityApiTokenAsyncFromInvalidApiKey($identityId1): void
+    {
+        var_dump($this->xooaClient1->regenerateIdentityApiTokenAsync($identityId1));
+    }
+
+    /**
+     * @depends testCanCallEnrollIdentityFromValidArguments
+     */
+    public function testCanCallGetIdentityFromValidArguments($identityId1): void
+    {
+        $this->assertInstanceOf(
+            'XooaSDK\response\IdentityResponse',
+            $this->xooaClient->getIdentity($identityId1)
+        );
+    }
+
+    /**
+     * @depends testCanCallEnrollIdentityFromValidArguments
+     */
+    public function testCanCallDeleteIdentityFromValidArguments($identityId1): void
+    {
+        $this->assertInstanceOf(
+            'XooaSDK\response\DeleteResponse',
+            $this->xooaClient->deleteIdentity($identityId1)
+        );
+    }
+
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     * @depends testCanCallEnrollIdentityFromValidArguments
+     */
+    public function testCannotCallDeleteIdentityFromInvaliApiToken($identityId1): void
+    {
+        $this->xooaClient1->deleteIdentity($identityId1);
+    }
+
+    /**
+     * @depends testCanCallEnrollIdentityAsyncFromValidArguments
+     */
+    public function testCanCallDeleteIdentityAsyncFromValidArguments($identityId2): void
+    {
+        $this->assertInstanceOf(
+            'XooaSDK\response\PendingTransactionResponse',
+            $this->xooaClient->deleteIdentityAsync($identityId2)
+        );
+    }
 }
 
 ?>

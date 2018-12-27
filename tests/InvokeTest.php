@@ -41,11 +41,13 @@ final class InvokeTest extends TestCase {
         $this->assertEquals("", $response->getPayload());
     }
 
-    // public function testCannotInvokeFromInvalidArguments(): void
-    // {
-    //     $this->expectException('XooaSDK\exception\XooaApiException');
-    //     $this->xooaClient->invoke('set',["args1"]);
-    // }
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotInvokeFromInvalidArguments(): void
+    {
+        $this->xooaClient->invoke('set',["args1"]);
+    }
 
     public function testCanInvokeAsyncFromValidArguments(): void
     {

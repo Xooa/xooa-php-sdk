@@ -50,7 +50,7 @@
             $log->debug('calling invoke method "set" with args "args1, args2"');
             $response = $XooaClient->invoke('set', ["args1","args2"], 3000);
             var_dump($response);
-            echo "\n-----end-----\n";
+
             $trxnId = $response->getTransactionId();
         } catch (Exception $e) {
             var_dump($e);
@@ -66,7 +66,7 @@
             $log->debug('calling invokeAsync method "set" with args "args1, args2"');
             $response = $XooaClient->invokeAsync('set', ["args1","args2"]);
             var_dump($response);
-            echo "\n-----end-----\n";
+
             $invokeResultID = $response->getResultId();
         } catch (Exception $e) {
             var_dump($e);
@@ -85,7 +85,7 @@
             $log->debug('calling query method "get" with args "args1"');
             $response = $XooaClient->query('get', ["args1"], 3000);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -100,7 +100,7 @@
             $log->debug('calling queryAsync method "get" with args "args1"');
             $response = $XooaClient->queryAsync('get', ["args1"]);
             var_dump($response);
-            echo "\n-----end-----\n";
+
             $queryResultID = $response->getResultId();
         } catch (Exception $e) {
             var_dump($e);
@@ -116,7 +116,7 @@
             $log->debug('calling currentIdentity method');
             $response = $XooaClient->currentIdentity();
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -129,7 +129,7 @@
             $log->debug('calling getIdentities method');
             $response = $XooaClient->getIdentities();
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -171,7 +171,7 @@
             $response = $XooaClient->enrollIdentity($identityRequest);
             $identityId2 = $response->getId();
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -197,7 +197,7 @@
                 }';
             $response = $XooaClient->enrollIdentityAsync($identityRequest);
             var_dump($response);
-            echo "\n-----end-----\n";
+
             $identityResultID = $response->getResultId();
         } catch (Exception $e) {
             var_dump($e);
@@ -211,7 +211,7 @@
             $log->debug('calling regenerateIdentityApiToken method with identity ID of identity generated in enrollIdentity method call');
             $response = $XooaClient->regenerateIdentityApiToken($identityId1);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -224,7 +224,7 @@
             $log->debug('calling regenerateIdentityApiTokenAsync method with identity ID of identity generated in enrollIdentity method call');
             $response = $XooaClient->regenerateIdentityApiTokenAsync($identityId1);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -237,7 +237,7 @@
             $log->debug('calling getIdentity method with identity ID of identity generated in enrollIdentity method call');
             $response = $XooaClient->getIdentity($identityId1);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -250,7 +250,7 @@
             $log->debug('calling deleteIdentity method with identity ID of identity generated in enrollIdentity method call');
             $response = $XooaClient->deleteIdentity($identityId1);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -263,7 +263,7 @@
             $log->debug('calling deleteIdentityAsync method with identity ID of identity generated in enrollIdentity method call');
             $response = $XooaClient->deleteIdentityAsync($identityId2);
             var_dump($response);
-            echo "\n-----end-----\n";
+
             $deleteIdentityResultID = $response->getResultId();
         } catch (Exception $e) {
             var_dump($e);
@@ -279,7 +279,7 @@
             $log->debug('calling getCurrentBlock method');
             $response = $XooaClient->getCurrentBlock();
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -292,7 +292,7 @@
             $log->debug('calling getCurrentBlockAsync method');
             $response = $XooaClient->getCurrentBlockAsync();
             var_dump($response);
-            echo "\n-----end-----\n";
+
             $currentBlockResultID = $response->getResultId();
         } catch (Exception $e) {
             var_dump($e);
@@ -306,7 +306,7 @@
             $log->debug('calling getBlockByNumber method with "1" as block number');
             $response = $XooaClient->getBlockByNumber(1);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -319,7 +319,7 @@
             $log->debug('calling getBlockByNumberAsync method with "1" as block number');
             $response = $XooaClient->getBlockByNumberAsync(1);
             var_dump($response);
-            echo "\n-----end-----\n";
+
             $blockResultID = $response->getResultId();
         } catch (Exception $e) {
             var_dump($e);
@@ -333,7 +333,7 @@
             $log->debug('calling getTransactionByTransactionId method with "trxnId" as transaction id');
             $response = $XooaClient->getTransactionByTransactionId($trxnId);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -346,7 +346,7 @@
             $log->debug('calling getTransactionByTransactionIdAsync method with "trxnId" as transaction id');
             $response = $XooaClient->getTransactionByTransactionIdAsync($trxnId);
             var_dump($response);
-            echo "\n-----end-----\n";
+
             $transactionResultID = $response->getResultId();
         } catch (Exception $e) {
             var_dump($e);
@@ -362,7 +362,7 @@
             $log->debug('calling getResultForQuery method with resultId generated in queryAsync method call');
             $response = $XooaClient->getResultForQuery($queryResultID);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -375,7 +375,7 @@
             $log->debug('calling getResultForInvoke method with resultId generated in invokeAsync method call');
             $response = $XooaClient->getResultForInvoke($invokeResultID);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -388,7 +388,7 @@
             $log->debug('calling getResultForIdentity method with resultId generated in enrollIdentityAsync method call');
             $response = $XooaClient->getResultForIdentity($identityResultID);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -401,7 +401,7 @@
             $log->debug('calling getResultForDeleteIdentity method with resultId generated in deleteIdentityAsync method call');
             $response = $XooaClient->getResultForDeleteIdentity($deleteIdentityResultID);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -414,7 +414,7 @@
             $log->debug('calling getResultForCurrentBlock method with resultId generated in getCurrentBlockAsync method call');
             $response = $XooaClient->getResultForCurrentBlock($currentBlockResultID);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -427,7 +427,7 @@
             $log->debug('calling getResultForBlockByNumber method with resultId generated in getBlockByNumberAsync method call');
             $response = $XooaClient->getResultForBlockByNumber($blockResultID);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -440,7 +440,7 @@
             $log->debug('calling getResultForTransaction method with resultId generated in getTransactionByTransactionIdAsync method call');
             $response = $XooaClient->getResultForTransaction($transactionResultID);
             var_dump($response);
-            echo "\n-----end-----\n";
+
         } catch (Exception $e) {
             var_dump($e);
         }
@@ -450,7 +450,7 @@
         function callBackForEvent($event){
             var_dump("in callback");
             var_dump($event);
-            echo "\n-----end-----\n";
+
         }
 
         /**
@@ -472,6 +472,7 @@
          * */
         $XooaClient->unsubscribe();
 
+        echo "\n-----end-----\n";
 
     } else {
         $log->debug('Validation unsuccessful. Invalid API Token.');

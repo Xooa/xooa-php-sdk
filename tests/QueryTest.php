@@ -41,11 +41,13 @@ final class QueryTest extends TestCase {
         $this->assertEquals("args2", $response->getPayload());
     }
 
-    // public function testCannotQueryFromInvalidArguments(): void
-    // {
-    //     $this->expectException('XooaSDK\exception\XooaApiException');
-    //     $this->xooaClient->query('get');
-    // }
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotQueryFromInvalidArguments(): void
+    {
+        $this->xooaClient->query('get');
+    }
 
     public function testCanQueryAsyncFromValidArguments(): void
     {
@@ -53,6 +55,14 @@ final class QueryTest extends TestCase {
             'XooaSDK\response\PendingTransactionResponse',
             $this->xooaClient->queryAsync('get',["args1"])
         );
+    }
+
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotQueryAsyncFromInvalidArguments(): void
+    {
+        $this->xooaClient->queryAsync('get');
     }
 }
 
