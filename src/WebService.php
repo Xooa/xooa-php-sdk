@@ -133,7 +133,7 @@
                 $resp = curl_exec($curl);
                 $response = new WebCalloutResponse();
                 $status = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
-                var_dump($resp);
+                // var_dump($resp);
                 XooaClient::$log->debug("Response received: ".$resp);
                 XooaClient::$log->debug("HTTP status: ".$status);
                 $response->setResponseCode($status);
