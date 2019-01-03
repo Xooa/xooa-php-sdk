@@ -36,7 +36,7 @@ final class QueryTest extends TestCase {
     public function testCanQueryFromValidArguments()
     {
         sleep(5);
-        $response = self::$xooaClient->query('get',["args1"]);
+        $response = self::$xooaClient->query('get',["args1"],10000);
         $this->assertInstanceOf(
             'XooaSDK\response\QueryResponse',
             $response
