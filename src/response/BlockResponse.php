@@ -17,7 +17,8 @@
  */
 
 namespace XooaSDK\response;
- class BlockResponse {
+
+class BlockResponse {
     private $previousHash;
     private $dataHash;
     private $numberOfTransactions;

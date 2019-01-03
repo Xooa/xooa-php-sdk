@@ -17,7 +17,8 @@
  */
 
 namespace XooaSDK\response;
- class QueryResponse {
+
+class QueryResponse {
     private $payload;
 
     /**

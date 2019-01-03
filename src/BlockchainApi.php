@@ -37,7 +37,7 @@ class BlockchainApi {
      */
     public function getCurrentBlock($calloutBaseUrl, $apiToken) {
         $url = $calloutBaseUrl . "/block/current";
-        return $this->callBlockchainApi($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        return $this->callBlockchainApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -49,7 +49,7 @@ class BlockchainApi {
      */
     public function getCurrentBlockAsync($calloutBaseUrl, $apiToken) {
         $url = $calloutBaseUrl . "/block/current?async=true";
-        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -64,7 +64,7 @@ class BlockchainApi {
      */
     public function getBlockByNumber($calloutBaseUrl, $apiToken, $blockNumber) {
         $url = $calloutBaseUrl . "/block/" . $blockNumber;
-        return $this->callBlockApi($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        return $this->callBlockApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -78,7 +78,7 @@ class BlockchainApi {
      */
     public function getBlockByNumberAsync($calloutBaseUrl, $apiToken, $blockNumber) {
         $url = $calloutBaseUrl . "/block/" . $blockNumber . "?async=true";
-        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -93,7 +93,7 @@ class BlockchainApi {
      */
     public function getTransactionByTransactionId($calloutBaseUrl, $apiToken, $transactionId) {
         $url = $calloutBaseUrl . "/transactions/" . $transactionId;
-        return $this->callTransactionApi($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        return $this->callTransactionApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -107,7 +107,7 @@ class BlockchainApi {
      */
     public function getTransactionByTransactionIdAsync($calloutBaseUrl, $apiToken, $transactionId) {
         $url = $calloutBaseUrl . "/transactions/" . $transactionId . "?async=true";
-        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     private function callBlockchainApi($apiToken, $url, $requestMethod) {
@@ -214,11 +214,11 @@ class BlockchainApi {
             $transactionResponse->setTxid($response->getResponseText()["txid"]);
             $transactionResponse->setCreatedt($response->getResponseText()["createdt"]);
             $transactionResponse->setSmartcontract($response->getResponseText()["smartcontract"]);
-            $transactionResponse->setCreator_msp_id($response->getResponseText()["creator_msp_id"]);
-            $transactionResponse->setEndorser_msp_id($response->getResponseText()["endorser_msp_id"]);
+            $transactionResponse->setCreatorMspId($response->getResponseText()["creator_msp_id"]);
+            $transactionResponse->setEndorserMspId($response->getResponseText()["endorser_msp_id"]);
             $transactionResponse->setType($response->getResponseText()["type"]);
-            $transactionResponse->setRead_set($response->getResponseText()["read_set"]);
-            $transactionResponse->setWrite_set($response->getResponseText()["write_set"]);
+            $transactionResponse->setReadSet($response->getResponseText()["read_set"]);
+            $transactionResponse->setWriteSet($response->getResponseText()["write_set"]);
             XooaClient::$log->info($transactionResponse);
             return $transactionResponse;
         }
@@ -255,5 +255,3 @@ class BlockchainApi {
         }
     }
 }
-
-?>

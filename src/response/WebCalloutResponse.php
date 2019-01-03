@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK\response;
+
 class WebCalloutResponse {
     private $responseCode;
     private $responseText;
@@ -60,6 +61,3 @@ class WebCalloutResponse {
         $this->responseText = $responseText;
     }
 }
-
-
-?>

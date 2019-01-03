@@ -125,5 +125,3 @@ final class BlockchainTest extends TestCase {
         );
     }
 }
-
-?>

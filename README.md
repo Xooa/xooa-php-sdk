@@ -76,7 +76,7 @@ string — Should contain an instance of object of Monolog/logger
 ### \$DEFAULT\_CALLOUT\_BASE\_URL {.private}
 
 ``` {.signature}
-$DEFAULT_CALLOUT_BASE_URL : string
+$defaultCalloutBaseUrl : string
 ```
 
 

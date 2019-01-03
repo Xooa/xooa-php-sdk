@@ -65,7 +65,3 @@ final class XooaClientTest extends TestCase
         );
     }
 }
-
-
-
-?>

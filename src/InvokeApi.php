@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK;
+
 use XooaSDK\exception\XooaApiException;
 use XooaSDK\exception\XooaRequestTimeoutException;
 use XooaSDK\response\InvokeResponse;
@@ -131,4 +132,3 @@ class InvokeApi {
         }
     }
 }
-?>

@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK\exception;
+
 class XooaApiException extends \Exception {
     private $errorCode;
     private $errorMessage;
@@ -61,5 +62,3 @@ class XooaApiException extends \Exception {
         $this->errorMessage = $errorMessage;
     }
 }
-
-?>

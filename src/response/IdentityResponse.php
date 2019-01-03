@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK\response;
+
 class IdentityResponse {
 
     private $identityName;

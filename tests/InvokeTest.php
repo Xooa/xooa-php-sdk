@@ -73,5 +73,3 @@ final class InvokeTest extends TestCase {
         self::$xooaClient1->invokeAsync('set',["args1"]);
     }
 }
-
-?>

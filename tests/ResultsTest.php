@@ -202,5 +202,3 @@ final class resultsTest extends TestCase {
         self::$xooaClient1->getResultForTransaction($transactionResultID);
     }
 }
-
-?>

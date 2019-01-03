@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK\response;
+
 class InvokeResponse {
     private $transactionId;
 
@@ -62,5 +63,3 @@ class InvokeResponse {
         $this->payload = $payload;
     }
 }
-
-?>

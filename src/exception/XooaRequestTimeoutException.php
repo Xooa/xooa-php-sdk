@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK\exception;
+
 class XooaRequestTimeoutException extends \Exception {
     private $resultUrl;
     private $resultId;
@@ -61,5 +62,3 @@ class XooaRequestTimeoutException extends \Exception {
         $this->resultId = $resultId;
     }
 }
-
-?>

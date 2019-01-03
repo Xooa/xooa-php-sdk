@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK;
+
 use XooaSDK\exception\XooaApiException;
 use XooaSDK\exception\XooaRequestTimeoutException;
 use XooaSDK\response\IdentityResponse;
@@ -37,7 +38,7 @@ class IdentityApi {
      */
     public function currentIdentity($calloutBaseUrl, $apiToken) {
         $url = $calloutBaseUrl . "/identities/me";
-        return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_GET, null);
+        return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodGet, null);
     }
 
     /**
@@ -50,7 +51,7 @@ class IdentityApi {
      */
     public function getIdentities($calloutBaseUrl, $apiToken) {
         $url = $calloutBaseUrl . "/identities/";
-        return $this->callAllIdentitiesApi($apiToken, $url, WebService::$REQUEST_METHOD_GET, null);
+        return $this->callAllIdentitiesApi($apiToken, $url, WebService::$RequestMethodGet, null);
     }
 
     /**
@@ -66,7 +67,7 @@ class IdentityApi {
      */
     public function enrollIdentity($calloutBaseUrl, $apiToken, $identityRequest, $timeout=3000) {
         $url = $calloutBaseUrl . "/identities?timeout=" . $timeout;
-        return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_POST, $identityRequest);
+        return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodPost, $identityRequest);
     }
 
     /**
@@ -80,7 +81,7 @@ class IdentityApi {
      */
     public function enrollIdentityAsync($calloutBaseUrl, $apiToken, $identityRequest) {
         $url = $calloutBaseUrl . "/identities?async=true";
-        return $this->callIdentityApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_POST, $identityRequest);
+        return $this->callIdentityApiAsync($apiToken, $url, WebService::$RequestMethodPost, $identityRequest);
     }
 
     /**
@@ -96,7 +97,7 @@ class IdentityApi {
      */
     public function regenerateIdentityApiToken($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
         $url = $calloutBaseUrl . "/identities/" . $identityId . "/regeneratetoken?timeout=" . $timeout;
-        return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_POST, null);
+        return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodPost, null);
     }
     /**
      * Regenerates Identity API token asynchronously
@@ -109,7 +110,7 @@ class IdentityApi {
      */
     public function regenerateIdentityApiTokenAsync($calloutBaseUrl, $apiToken, $identityId) {
         $url = $calloutBaseUrl . "/identities/" . $identityId . "/regeneratetoken?async=true";
-        return $this->callIdentityApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_POST, null);
+        return $this->callIdentityApiAsync($apiToken, $url, WebService::$RequestMethodPost, null);
     }
 
     /**
@@ -125,7 +126,7 @@ class IdentityApi {
      */
     public function getIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
         $url = $calloutBaseUrl . "/identities/" . $identityId . "?timeout=" . $timeout;
-        return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_GET, null);
+        return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodGet, null);
     }
 
     /**
@@ -141,7 +142,7 @@ class IdentityApi {
      */
     public function deleteIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
         $url = $calloutBaseUrl . "/identities/" . $identityId . "?timeout=" . $timeout;
-        return $this->callDeleteIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_DELETE, null);
+        return $this->callDeleteIdentityApi($apiToken, $url, WebService::$RequestMethodDelete, null);
     }
 
     /**
@@ -155,7 +156,7 @@ class IdentityApi {
      */
     public function deleteIdentityAsync($calloutBaseUrl, $apiToken, $identityId) {
         $url = $calloutBaseUrl . "/identities/" . $identityId . "?async=true";
-        return $this->callIdentityApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_DELETE, null);
+        return $this->callIdentityApiAsync($apiToken, $url, WebService::$RequestMethodDelete, null);
     }
 
     

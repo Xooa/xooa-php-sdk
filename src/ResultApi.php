@@ -43,7 +43,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -82,7 +82,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -120,7 +120,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -165,7 +165,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -203,7 +203,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -243,7 +243,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -284,7 +284,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -305,11 +305,11 @@ class ResultApi {
             $transactionResponse->setTxid($response->getResponseText()["result"]["txid"]);
             $transactionResponse->setCreatedt($response->getResponseText()["result"]["createdt"]);
             $transactionResponse->setSmartcontract($response->getResponseText()["result"]["smartcontract"]);
-            $transactionResponse->setCreator_msp_id($response->getResponseText()["result"]["creator_msp_id"]);
-            $transactionResponse->setEndorser_msp_id($response->getResponseText()["result"]["endorser_msp_id"]);
+            $transactionResponse->setCreatorMspId($response->getResponseText()["result"]["creator_msp_id"]);
+            $transactionResponse->setEndorserMspId($response->getResponseText()["result"]["endorser_msp_id"]);
             $transactionResponse->setType($response->getResponseText()["result"]["type"]);
-            $transactionResponse->setRead_set($response->getResponseText()["result"]["read_set"]);
-            $transactionResponse->setWrite_set($response->getResponseText()["result"]["write_set"]);
+            $transactionResponse->setReadSet($response->getResponseText()["result"]["read_set"]);
+            $transactionResponse->setWriteSet($response->getResponseText()["result"]["write_set"]);
             XooaClient::$log->info($transactionResponse);
             return $transactionResponse;
         }

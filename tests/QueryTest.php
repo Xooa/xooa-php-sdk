@@ -73,5 +73,3 @@ final class QueryTest extends TestCase {
         $response = self::$xooaClient1->queryAsync('get');
     }
 }
-
-?>
