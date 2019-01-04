@@ -19,7 +19,7 @@
 use PHPUnit\Framework\TestCase;
 use XooaSDK\XooaClient;
 
-final class resultsTest extends TestCase {
+final class ResultsTest extends TestCase {
 
     private static $xooaClient;
     private static $xooaClient1;
@@ -35,7 +35,7 @@ final class resultsTest extends TestCase {
     
     public function testCanGetResultForQueryFromValidArguments()
     {
-        $response = self::$xooaClient->queryAsync('get',["args1"]);
+        $response = self::$xooaClient->queryAsync('get', ["args1"]);
         $queryResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(
@@ -56,7 +56,7 @@ final class resultsTest extends TestCase {
 
     public function testCanGetResultForInvokeFromValidArguments()
     {
-        $response = self::$xooaClient->invokeAsync('set',["args1","args2"]);
+        $response = self::$xooaClient->invokeAsync('set', ["args1", "args2"]);
         $invokeResultID = $response->getResultId();
         sleep(5);
         $this->assertInstanceOf(

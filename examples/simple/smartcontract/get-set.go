@@ -49,9 +49,9 @@ func (t *SimpleAsset) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 
 	if fn == "set" {
 		return t.set(stub, args)
-	} else if fn == "get" {
+	} elseif fn == "get" {
 		return t.get(stub, args)
-	} else if fn == "getVersion" {
+	} elseif fn == "getVersion" {
 		return t.getVersion(stub)
 	}
 

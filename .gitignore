@@ -4,3 +4,4 @@ log.logcache.properties
 composer.lock
 composer.phar
 build
+log.log

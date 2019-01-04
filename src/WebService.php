@@ -98,7 +98,7 @@ class WebService {
     private function makeHttpCall($calloutUrl, $requestMethod, $requestBody) {
         try {
             $curl = curl_init();
-            if($requestMethod == "POST") {
+            if ($requestMethod == "POST") {
                 XooaClient::$log->debug('Request Body: '.$requestBody);
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
@@ -110,7 +110,7 @@ class WebService {
                         "Authorization: bearer " . $this->apiToken
                     )
                 ));
-            } else if($requestMethod == "GET"){
+            } elseif ($requestMethod == "GET"){
                 curl_setopt_array($curl, array(
                     CURLOPT_RETURNTRANSFER => 1,
                     CURLOPT_URL => $calloutUrl.$requestBody,
@@ -139,7 +139,7 @@ class WebService {
             XooaClient::$log->debug("Response received: ".$resp);
             XooaClient::$log->debug("HTTP status: ".$status);
             $response->setResponseCode($status);
-            $response->setResponseText(json_decode($resp,true));
+            $response->setResponseText(json_decode($resp, true));
             curl_close($curl);
 
             return $response;

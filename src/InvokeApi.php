@@ -84,14 +84,12 @@ class InvokeApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-
         } else {
             $invokeResponse = new InvokeResponse();
             $invokeResponse->setTransactionId($response->getResponseText()["txId"]);
@@ -121,7 +119,6 @@ class InvokeApi {
             $apiException = new XooaApiException();
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText());
-
             throw $apiException;
         } else {
             $pendingTransactionResponse = new PendingTransactionResponse();

@@ -38,8 +38,8 @@ use Monolog\Handler\StreamHandler;
 class XooaClient {
     
     /** @var string Should contain a Xooa URL to send APIs to if not set by User*/
-    private static  $defaultCalloutBaseUrl = "https://api.xooa.com/api/v1";
-    private static  $defaultSocketUrl = "https://api.xooa.com/";
+    private static $defaultCalloutBaseUrl = "https://api.xooa.com/api/v1";
+    private static $defaultSocketUrl = "https://api.xooa.com/";
     
     /** @var string Should contain a Xooa API Token to authorize requests */
     private $apiToken;
@@ -89,7 +89,7 @@ class XooaClient {
     /**
      * Sets the base URL to send calls to
      *
-     * @param  string $calloutBaseUrl
+     * @param string $calloutBaseUrl
      *
      * @return void
      */
@@ -97,8 +97,8 @@ class XooaClient {
         $this->calloutBaseUrl = $calloutBaseUrl;
         $this::$log->debug('URL set to '.$calloutBaseUrl);
 
-        $temp = explode("/",$calloutBaseUrl);
-        if(isset($temp[0]) && isset($temp[1]) && isset($temp[2])) {
+        $temp = explode("/", $calloutBaseUrl);
+        if (isset($temp[0]) && isset($temp[1]) && isset($temp[2])) {
             $socketUrl = $temp[0]."/".$temp[1]."/".$temp[2]."/";
             $this->socketUrl = $socketUrl;
             $this::$log->debug('Socket URL set to '.$socketUrl);
@@ -117,7 +117,7 @@ class XooaClient {
     /**
      * Sets the logging level for PHP SDK
      *
-     * @param  string $loggingLevel - [DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAl, ALERT, EMERGENCY]
+     * @param string $loggingLevel - [DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAl, ALERT, EMERGENCY]
      *
      * @return void
      */
@@ -129,7 +129,7 @@ class XooaClient {
     /**
      * Sets the object of SDK WebService
      *
-     * @param  WebService $webService
+     * @param WebService $webService
      *
      * @return void
      */
@@ -186,7 +186,7 @@ class XooaClient {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function invoke($functionName, $args=[], $timeout=3000) {
+    public function invoke($functionName, $args = [], $timeout = 3000) {
         $this::$log->debug('XooaClient::invoke() called with args: '. json_encode($args));
         $invokeApi = new InvokeApi();
         return $invokeApi->invoke($this->calloutBaseUrl, $functionName, $this->apiToken, $args, $timeout);
@@ -202,7 +202,7 @@ class XooaClient {
      * 
      * @throws XooaApiException
      */
-    public function invokeAsync($functionName, $args=[]) {
+    public function invokeAsync($functionName, $args = []) {
         $this::$log->debug('XooaClient::invokeAsync() called with args: '. json_encode($args));
         $invokeApi = new InvokeApi();
         return $invokeApi->invokeAsync($this->calloutBaseUrl, $functionName, $this->apiToken, $args);
@@ -222,7 +222,7 @@ class XooaClient {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function query($functionName, $args=[], $timeout=3000) {
+    public function query($functionName, $args = [], $timeout = 3000) {
         $this::$log->debug('XooaClient::query() called with args: '. json_encode($args));
         $queryApi = new QueryApi();
         return $queryApi->query($this->calloutBaseUrl, $functionName, $this->apiToken, $args, $timeout);
@@ -238,7 +238,7 @@ class XooaClient {
      * 
      * @throws XooaApiException
      */
-    public function queryAsync($functionName, $args=[]) {
+    public function queryAsync($functionName, $args = []) {
         $this::$log->debug('XooaClient::queryAsync() called with args: '. json_encode($args));
         $queryApi = new QueryApi();
         return $queryApi->queryAsync($this->calloutBaseUrl, $functionName, $this->apiToken, $args);
@@ -276,15 +276,15 @@ class XooaClient {
     /**
      * Enrolls a new identity
      *
-     * @param  json $identityRequest
-     * @param  int $timeout
+     * @param json $identityRequest
+     * @param int $timeout
      *
      * @return IdentityResponse
      * 
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function enrollIdentity($identityRequest, $timeout=3000) {
+    public function enrollIdentity($identityRequest, $timeout = 3000) {
         $this::$log->debug('XooaClient::enrollIdentity() called with args: '. json_encode($identityRequest));
         $identityApi = new IdentityApi();
         return $identityApi->enrollIdentity($this->calloutBaseUrl, $this->apiToken, $identityRequest, $timeout);
@@ -293,7 +293,7 @@ class XooaClient {
     /**
      * Enrolls a new identity asynchronously
      *
-     * @param  json $identityRequest
+     * @param json $identityRequest
      *
      * @return PendingTransactionResponse
      * 
@@ -308,15 +308,15 @@ class XooaClient {
     /**
      * Regenerates Identity API token
      *
-     * @param  string $identityId
-     * @param  int $timeout
+     * @param string $identityId
+     * @param int $timeout
      *
      * @return IdentityResponse
      * 
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function regenerateIdentityApiToken($identityId, $timeout=3000) {
+    public function regenerateIdentityApiToken($identityId, $timeout = 3000) {
         $this::$log->debug('XooaClient::regenerateIdentityApiToken() called with args: '. $identityId);
         $identityApi = new IdentityApi();
         return $identityApi->regenerateIdentityApiToken($this->calloutBaseUrl, $this->apiToken, $identityId, $timeout);
@@ -325,7 +325,7 @@ class XooaClient {
     /**
      * Regenerates Identity API token asynchronously
      *
-     * @param  string $identityId
+     * @param string $identityId
      *
      * @return PendingTransactionResponse
      * 
@@ -340,15 +340,15 @@ class XooaClient {
     /**
      * Gets the details about identityID 
      *
-     * @param  string $identityId
-     * @param  int $timeout
+     * @param string $identityId
+     * @param int $timeout
      *
      * @return IdentityResponse
      * 
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getIdentity($identityId, $timeout=3000) {
+    public function getIdentity($identityId, $timeout = 3000) {
         $this::$log->debug('XooaClient::getIdentity() called with args: '. $identityId);
         $identityApi = new IdentityApi();
         return $identityApi->getIdentity($this->calloutBaseUrl, $this->apiToken, $identityId, $timeout);
@@ -357,15 +357,15 @@ class XooaClient {
     /**
      * Deletes the given identity
      *
-     * @param  string $identityId
-     * @param  int $timeout
+     * @param string $identityId
+     * @param int $timeout
      *
      * @return DeleteResponse
      * 
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function deleteIdentity($identityId, $timeout=3000) {
+    public function deleteIdentity($identityId, $timeout = 3000) {
         $this::$log->debug('XooaClient::deleteIdentity() called with args: '. $identityId);
         $identityApi = new IdentityApi();
         return $identityApi->deleteIdentity($this->calloutBaseUrl, $this->apiToken, $identityId, $timeout);
@@ -374,7 +374,7 @@ class XooaClient {
     /**
      * Deletes the given identity asynchronously
      *
-     * @param  string $identityId
+     * @param string $identityId
      *
      * @return PendingTransactionResponse
      * 
@@ -418,7 +418,7 @@ class XooaClient {
     /**
      * Gets the detail about given block number 
      *
-     * @param  int $blockNumber
+     * @param int $blockNumber
      *
      * @return BlockResponse
      * 
@@ -434,7 +434,7 @@ class XooaClient {
     /**
      * Gets the detail about given block number asynchronously
      *
-     * @param  int $blockNumber
+     * @param int $blockNumber
      *
      * @return PendingTransactionResponse
      * 
@@ -449,7 +449,7 @@ class XooaClient {
     /**
      * Gets the detail about given transaction id
      *
-     * @param  string $transactionId
+     * @param string $transactionId
      *
      * @return TransactionResponse
      * 
@@ -465,7 +465,7 @@ class XooaClient {
     /**
      * Gets the detail about given transaction id asynchronously
      *
-     * @param  string $transactionId
+     * @param string $transactionId
      *
      * @return PendingTransactionResponse
      * 
@@ -482,7 +482,7 @@ class XooaClient {
     /**
      * Gets the result for invoke pending request
      *
-     * @param  string $resultId
+     * @param string $resultId
      *
      * @return InvokeResponse
      * 
@@ -498,7 +498,7 @@ class XooaClient {
     /**
      * Gets the result for query pending request
      *
-     * @param  string $resultId
+     * @param string $resultId
      *
      * @return QueryResponse
      * 
@@ -514,7 +514,7 @@ class XooaClient {
     /**
      * Gets the result for identity pending request
      *
-     * @param  string $resultId
+     * @param string $resultId
      *
      * @return IdentityResponse
      * 
@@ -530,7 +530,7 @@ class XooaClient {
     /**
      * Gets the result for delete identity pending request
      *
-     * @param  string $resultId
+     * @param string $resultId
      *
      * @return DeleteResponse
      * 
@@ -546,7 +546,7 @@ class XooaClient {
     /**
      * Gets the result for current block pending request
      *
-     * @param  string $resultId
+     * @param string $resultId
      *
      * @return CurrentBlockResponse
      * 
@@ -562,7 +562,7 @@ class XooaClient {
     /**
      * Gets the result for block pending request
      *
-     * @param  string $resultId
+     * @param string $resultId
      *
      * @return BlockResponse
      * 
@@ -578,7 +578,7 @@ class XooaClient {
     /**
      * Gets the result for transaction pending request
      *
-     * @param  string $resultId
+     * @param string $resultId
      *
      * @return TransactionResponse
      * 
@@ -596,7 +596,7 @@ class XooaClient {
     /**
      * Subscribes to all events
      * 
-     * @param  callable $callbackOnEvent
+     * @param callable $callbackOnEvent
      *
      * @return void
      * 

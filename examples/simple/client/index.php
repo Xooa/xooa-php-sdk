@@ -36,7 +36,7 @@ $deleteIdentityResultID = "";
 $currentBlockResultID = "";
 $blockResultID = "";
 $transactionResultID = "";
-if($XooaClient->validate()) {
+if ($XooaClient->validate()) {
 
     // Calling invoke methods
 

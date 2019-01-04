@@ -36,7 +36,7 @@ final class InvokeTest extends TestCase {
     public function testCanInvokeFromValidArguments()
     {
         sleep(5);
-        $response = self::$xooaClient->invoke('set',["args1","args2"],10000);
+        $response = self::$xooaClient->invoke('set', ["args1", "args2"], 10000);
         $this->assertInstanceOf(
             'XooaSDK\response\InvokeResponse',
             $response
@@ -45,7 +45,7 @@ final class InvokeTest extends TestCase {
 
     public function testInvokeReturnsFromValidArguments()
     {   
-        $response = self::$xooaClient->invoke('set',["args1","args2"]);
+        $response = self::$xooaClient->invoke('set', ["args1", "args2"]);
         $this->assertEquals("", $response->getPayload());
     }
 
@@ -54,14 +54,14 @@ final class InvokeTest extends TestCase {
      */
     public function testCannotInvokeFromInvalidArguments(): void
     {
-        self::$xooaClient->invoke('set',["args1"]);
+        self::$xooaClient->invoke('set', ["args1"]);
     }
 
     public function testCanInvokeAsyncFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            self::$xooaClient->invokeAsync('set',["args1","args2"])
+            self::$xooaClient->invokeAsync('set', ["args1", "args2"])
         );
     }
 
@@ -70,6 +70,6 @@ final class InvokeTest extends TestCase {
      */
     public function testCannotInvokeAsyncFromInvalidApiToken(): void
     {
-        self::$xooaClient1->invokeAsync('set',["args1"]);
+        self::$xooaClient1->invokeAsync('set', ["args1"]);
     }
 }

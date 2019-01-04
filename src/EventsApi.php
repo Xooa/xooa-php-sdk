@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK;
+
 use ElephantIO\Client;
 use ElephantIO\Engine\SocketIO\Version2X;
 use ElephantIO\Exception\ServerConnectionFailureException;
@@ -41,7 +42,7 @@ class EventsApi {
             $client->initialize();
             $client->emit('authenticate', ['token' => $apiToken]);
             $r = $client->read();
-            if($r != '42["authenticated"]') {
+            if ($r != '42["authenticated"]') {
                 XooaClient::$log->error('Exception occured: Invalid API Token');
                 $apiException = new XooaApiException();
                 $apiException->setErrorCode(401);
@@ -58,12 +59,12 @@ class EventsApi {
 
         while ($this::$subscribed == 1) {
             $r = $client->read();
-            if(!empty($r)) {
+            if (!empty($r)) {
                 XooaClient::$log->debug('Event occured: '.$r);
-                $r = substr($r,2);
-                $r = json_decode($r,true);
-                if(isset($r[1]) && isset($r[1]["eventName"])) {
-                    call_user_func($callbackFn,$r);
+                $r = substr($r, 2);
+                $r = json_decode($r, true);
+                if (isset($r[1]) && isset($r[1]["eventName"])) {
+                    call_user_func($callbackFn, $r);
                 }
             }
         }

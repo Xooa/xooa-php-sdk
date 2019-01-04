@@ -65,7 +65,7 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function enrollIdentity($calloutBaseUrl, $apiToken, $identityRequest, $timeout=3000) {
+    public function enrollIdentity($calloutBaseUrl, $apiToken, $identityRequest, $timeout = 3000) {
         $url = $calloutBaseUrl . "/identities?timeout=" . $timeout;
         return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodPost, $identityRequest);
     }
@@ -95,7 +95,7 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function regenerateIdentityApiToken($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
+    public function regenerateIdentityApiToken($calloutBaseUrl, $apiToken, $identityId, $timeout = 3000) {
         $url = $calloutBaseUrl . "/identities/" . $identityId . "/regeneratetoken?timeout=" . $timeout;
         return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodPost, null);
     }
@@ -124,7 +124,7 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
+    public function getIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout = 3000) {
         $url = $calloutBaseUrl . "/identities/" . $identityId . "?timeout=" . $timeout;
         return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodGet, null);
     }
@@ -140,7 +140,7 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function deleteIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
+    public function deleteIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout = 3000) {
         $url = $calloutBaseUrl . "/identities/" . $identityId . "?timeout=" . $timeout;
         return $this->callDeleteIdentityApi($apiToken, $url, WebService::$RequestMethodDelete, null);
     }
@@ -183,14 +183,12 @@ class IdentityApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $deleteResponse = new DeleteResponse();
             $deleteResponse->setDeleted($response->getResponseText()["deleted"]);
@@ -222,14 +220,12 @@ class IdentityApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $identityResponse = new IdentityResponse();
             $identityResponse->setIdentityName($response->getResponseText()["IdentityName"]);
@@ -267,7 +263,6 @@ class IdentityApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
         } else {
             $pendingTransactionResponse = new PendingTransactionResponse();
             $pendingTransactionResponse->setResultUrl($response->getResponseText()["resultURL"]);
@@ -300,14 +295,12 @@ class IdentityApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $response = $response->getResponseText();
             $identityArr = [];
@@ -321,7 +314,7 @@ class IdentityApi {
                 $identityResponse->setAttrs($identity["Attrs"]);
                 $identityResponse->setAppId($identity["AppId"]);
                 $identityResponse->setAppName($identity["AppName"]);
-                array_push($identityArr,$identityResponse);
+                array_push($identityArr, $identityResponse);
             }
             XooaClient::$log->info($identityArr);
             return $identityArr;

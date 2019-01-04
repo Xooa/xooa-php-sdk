@@ -36,7 +36,7 @@ final class QueryTest extends TestCase {
     public function testCanQueryFromValidArguments()
     {
         sleep(5);
-        $response = self::$xooaClient->query('get',["args1"],10000);
+        $response = self::$xooaClient->query('get', ["args1"],10000);
         $this->assertInstanceOf(
             'XooaSDK\response\QueryResponse',
             $response
@@ -45,7 +45,7 @@ final class QueryTest extends TestCase {
 
     public function testReturnsFromValidArguments()
     {
-        $response = self::$xooaClient->query('get',["args1"]);
+        $response = self::$xooaClient->query('get', ["args1"]);
         $this->assertEquals("args2", $response->getPayload());
     }
 
@@ -61,7 +61,7 @@ final class QueryTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            self::$xooaClient->queryAsync('get',["args1"])
+            self::$xooaClient->queryAsync('get', ["args1"])
         );
     }
 
