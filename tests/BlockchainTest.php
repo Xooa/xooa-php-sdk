@@ -94,7 +94,7 @@ final class BlockchainTest extends TestCase {
 
     public function testCanGetTransactionByTransactionIdFromValidArguments()
     {
-        $response = self::$xooaClient->invoke('set', ["args1", "args2"], 10000);
+        $response = self::$xooaClient->invoke('set', ["args1", "args2"], 15000);
         $trxnId = $response->getTransactionId();
         $response1 = self::$xooaClient->getTransactionByTransactionId($trxnId, 10000);
         $this->assertInstanceOf(

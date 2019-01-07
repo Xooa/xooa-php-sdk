@@ -163,7 +163,7 @@ final class IdentitiesTest extends TestCase {
      */
     public function testCanCallDeleteIdentityFromValidArguments($identityId1): void
     {
-        $response = self::$xooaClient->deleteIdentity($identityId1);
+        $response = self::$xooaClient->deleteIdentity($identityId1, 10000);
         $this->assertInstanceOf(
             'XooaSDK\response\DeleteResponse',
             $response

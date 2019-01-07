@@ -37,7 +37,7 @@ final class ResultsTest extends TestCase {
     {
         $response = self::$xooaClient->queryAsync('get', ["args1"]);
         $queryResultID = $response->getResultId();
-        sleep(5);
+        sleep(8);
         $this->assertInstanceOf(
             'XooaSDK\response\QueryResponse',
             self::$xooaClient->getResultForQuery($queryResultID)
@@ -58,7 +58,7 @@ final class ResultsTest extends TestCase {
     {
         $response = self::$xooaClient->invokeAsync('set', ["args1", "args2"]);
         $invokeResultID = $response->getResultId();
-        sleep(5);
+        sleep(8);
         $this->assertInstanceOf(
             'XooaSDK\response\InvokeResponse',
             self::$xooaClient->getResultForInvoke($invokeResultID)
@@ -91,7 +91,7 @@ final class ResultsTest extends TestCase {
             }';
         $response = self::$xooaClient->enrollIdentityAsync($identityRequest);
         $identityResultID = $response->getResultId();
-        sleep(5);
+        sleep(8);
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
             self::$xooaClient->getResultForIdentity($identityResultID)
@@ -117,7 +117,7 @@ final class ResultsTest extends TestCase {
         $identityId = $response->getId();
         $response = self::$xooaClient->deleteIdentityAsync($identityId);
         $deleteIdentityResultID = $response->getResultId();
-        sleep(5);
+        sleep(8);
         $this->assertInstanceOf(
             'XooaSDK\response\DeleteResponse',
             self::$xooaClient->getResultForDeleteIdentity($deleteIdentityResultID)
@@ -138,7 +138,7 @@ final class ResultsTest extends TestCase {
     {
         $response = self::$xooaClient->getCurrentBlockAsync();
         $currentBlockResultID = $response->getResultId();
-        sleep(5);
+        sleep(8);
         $this->assertInstanceOf(
             'XooaSDK\response\CurrentBlockResponse',
             self::$xooaClient->getResultForCurrentBlock($currentBlockResultID)
@@ -159,7 +159,7 @@ final class ResultsTest extends TestCase {
     {
         $response = self::$xooaClient->getBlockByNumberAsync(1);
         $blockResultID = $response->getResultId();
-        sleep(5);
+        sleep(8);
         $this->assertInstanceOf(
             'XooaSDK\response\BlockResponse',
             self::$xooaClient->getResultForBlockByNumber($blockResultID)
@@ -185,7 +185,7 @@ final class ResultsTest extends TestCase {
         $trxnId = $response->getTransactionId();
         $response = self::$xooaClient->getTransactionByTransactionIdAsync($trxnId);
         $transactionResultID = $response->getResultId();
-        sleep(5);
+        sleep(8);
         $this->assertInstanceOf(
             'XooaSDK\response\TransactionResponse',
             self::$xooaClient->getResultForTransaction($transactionResultID)
