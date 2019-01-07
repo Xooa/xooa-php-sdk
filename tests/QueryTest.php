@@ -36,7 +36,7 @@ final class QueryTest extends TestCase {
     public function testCanQueryFromValidArguments()
     {
         sleep(5);
-        $response = self::$xooaClient->query('get', ["args1"],10000);
+        $response = self::$xooaClient->query('get', ["args1"], 15000);
         $this->assertInstanceOf(
             'XooaSDK\response\QueryResponse',
             $response
@@ -52,9 +52,9 @@ final class QueryTest extends TestCase {
     /**
      * @expectedException XooaSDK\exception\XooaApiException
      */
-    public function testCannotQueryFromInvalidArguments(): void
+    public function testCannotQueryFromInvalidApiToken(): void
     {
-        self::$xooaClient->query('get');
+        self::$xooaClient1->query('get', [], 15000);
     }
 
     public function testCanQueryAsyncFromValidArguments(): void

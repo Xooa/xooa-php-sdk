@@ -39,7 +39,7 @@ class QueryApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function query($calloutBaseUrl, $functionName, $apiToken, $args = [], $timeout = 3000) {
+    public function query($calloutBaseUrl, $functionName, $apiToken, $args, $timeout) {
         $url = $calloutBaseUrl . "/query/" . $functionName . "?timeout=" . $timeout;
         return $this->callQueryApi($apiToken, $url, $args);
     }

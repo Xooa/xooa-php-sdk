@@ -48,7 +48,7 @@ if ($XooaClient->validate()) {
      * */ 
     try {
         $log->debug('calling invoke method "set" with args "args1, args2"');
-        $response = $XooaClient->invoke('set', ["args1","args2"], 3000);
+        $response = $XooaClient->invoke('set', ["args1","args2"], 10000);
         var_dump($response);
 
         $trxnId = $response->getTransactionId();
@@ -83,7 +83,7 @@ if ($XooaClient->validate()) {
      * */
     try {
         $log->debug('calling query method "get" with args "args1"');
-        $response = $XooaClient->query('get', ["args1"], 3000);
+        $response = $XooaClient->query('get', ["args1"], 10000);
         var_dump($response);
 
     } catch (Exception $e) {

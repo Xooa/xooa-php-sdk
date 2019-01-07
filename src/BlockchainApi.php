@@ -36,8 +36,8 @@ class BlockchainApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getCurrentBlock($calloutBaseUrl, $apiToken) {
-        $url = $calloutBaseUrl . "/block/current";
+    public function getCurrentBlock($calloutBaseUrl, $apiToken, $timeout) {
+        $url = $calloutBaseUrl . "/block/current?timeout=" . $timeout;
         return $this->callBlockchainApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 
@@ -63,8 +63,8 @@ class BlockchainApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getBlockByNumber($calloutBaseUrl, $apiToken, $blockNumber) {
-        $url = $calloutBaseUrl . "/block/" . $blockNumber;
+    public function getBlockByNumber($calloutBaseUrl, $apiToken, $blockNumber, $timeout) {
+        $url = $calloutBaseUrl . "/block/" . $blockNumber . "?timeout=" . $timeout;
         return $this->callBlockApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 
@@ -92,8 +92,8 @@ class BlockchainApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getTransactionByTransactionId($calloutBaseUrl, $apiToken, $transactionId) {
-        $url = $calloutBaseUrl . "/transactions/" . $transactionId;
+    public function getTransactionByTransactionId($calloutBaseUrl, $apiToken, $transactionId, $timeout) {
+        $url = $calloutBaseUrl . "/transactions/" . $transactionId . "?timeout=" . $timeout;
         return $this->callTransactionApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 

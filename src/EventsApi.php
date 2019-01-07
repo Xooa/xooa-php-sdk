@@ -49,7 +49,7 @@ class EventsApi {
                 $apiException->setErrorMessage("Invalid API Token");
                 throw $apiException;
             }
-        } catch(ServerConnectionFailureException $e) {
+        } catch (ServerConnectionFailureException $e) {
             XooaClient::$log->error('Exception occured: Invalid URL');
             $apiException = new XooaApiException();
             $apiException->setErrorCode(400);

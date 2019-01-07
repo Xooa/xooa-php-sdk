@@ -81,7 +81,7 @@ final class IdentitiesTest extends TestCase {
             ],
             "canManageIdentities": true
             }';
-        $response = self::$xooaClient->enrollIdentity($identityRequest);
+        $response = self::$xooaClient->enrollIdentity($identityRequest, 10000);
         $identityId1 = $response->getId();
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',

@@ -396,10 +396,10 @@ class XooaClient {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getCurrentBlock() {
+    public function getCurrentBlock($timeout = 3000) {
         $this::$log->debug('XooaClient::getCurrentBlock() called');
         $blockchainApi = new BlockchainApi();
-        return $blockchainApi->getCurrentBlock($this->calloutBaseUrl, $this->apiToken);
+        return $blockchainApi->getCurrentBlock($this->calloutBaseUrl, $this->apiToken, $timeout);
     }
     
     /**
@@ -425,10 +425,10 @@ class XooaClient {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getBlockByNumber($blockNumber) {
+    public function getBlockByNumber($blockNumber, $timeout = 3000) {
         $this::$log->debug('XooaClient::getBlockByNumber() called with args: '. $blockNumber);
         $blockchainApi = new BlockchainApi();
-        return $blockchainApi->getBlockByNumber($this->calloutBaseUrl, $this->apiToken, $blockNumber);
+        return $blockchainApi->getBlockByNumber($this->calloutBaseUrl, $this->apiToken, $blockNumber, $timeout);
     }
     
     /**
@@ -456,10 +456,10 @@ class XooaClient {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getTransactionByTransactionId($transactionId) {
+    public function getTransactionByTransactionId($transactionId, $timeout = 3000) {
         $this::$log->debug('XooaClient::getTransactionByTransactionId() called with args: '. $transactionId);
         $blockchainApi = new BlockchainApi();
-        return $blockchainApi->getTransactionByTransactionId($this->calloutBaseUrl, $this->apiToken, $transactionId);
+        return $blockchainApi->getTransactionByTransactionId($this->calloutBaseUrl, $this->apiToken, $transactionId, $timeout);
     }
     
     /**

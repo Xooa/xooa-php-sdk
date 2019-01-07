@@ -19,6 +19,7 @@
 namespace XooaSDK;
 
 use XooaSDK\response\WebCalloutResponse;
+
 class WebService {
 
     public static $RequestMethodGet = "GET";
@@ -108,7 +109,7 @@ class WebService {
                     CURLOPT_HTTPHEADER => array(
                         "Content-Type: application/json",
                         "Authorization: bearer " . $this->apiToken
-                    )
+                    ) 
                 ));
             } elseif ($requestMethod == "GET"){
                 curl_setopt_array($curl, array(

@@ -36,7 +36,7 @@ final class InvokeTest extends TestCase {
     public function testCanInvokeFromValidArguments()
     {
         sleep(5);
-        $response = self::$xooaClient->invoke('set', ["args1", "args2"], 10000);
+        $response = self::$xooaClient->invoke('set', ["args1", "args2"], 15000);
         $this->assertInstanceOf(
             'XooaSDK\response\InvokeResponse',
             $response
