@@ -45,7 +45,7 @@ final class QueryTest extends TestCase {
 
     public function testReturnsFromValidArguments()
     {
-        $response = self::$xooaClient->query('get', ["args1"]);
+        $response = self::$xooaClient->query('get', ["args1"], 15000);
         $this->assertEquals("args2", $response->getPayload());
     }
 

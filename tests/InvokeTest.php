@@ -43,18 +43,12 @@ final class InvokeTest extends TestCase {
         );
     }
 
-    public function testInvokeReturnsFromValidArguments()
-    {   
-        $response = self::$xooaClient->invoke('set', ["args1", "args2"]);
-        $this->assertEquals("", $response->getPayload());
-    }
-
     /**
      * @expectedException XooaSDK\exception\XooaApiException
      */
     public function testCannotInvokeFromInvalidArguments(): void
     {
-        self::$xooaClient->invoke('set', ["args1"]);
+        self::$xooaClient->invoke('set', ["args1"], 15000);
     }
 
     public function testCanInvokeAsyncFromValidArguments(): void
