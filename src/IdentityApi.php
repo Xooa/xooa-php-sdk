@@ -304,7 +304,7 @@ class IdentityApi {
         } else {
             $response = $response->getResponseText();
             $identityArr = [];
-            foreach($response as $identity) {
+            foreach ($response as $identity) {
                 $identityResponse = new IdentityResponse();
                 $identityResponse->setIdentityName($identity["IdentityName"]);
                 $identityResponse->setAccessType($identity["Access"]);
