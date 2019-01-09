@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK;
+
 use XooaSDK\exception\XooaApiException;
 use XooaSDK\exception\XooaRequestTimeoutException;
 use XooaSDK\response\InvokeResponse;
@@ -83,14 +84,12 @@ class InvokeApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-
         } else {
             $invokeResponse = new InvokeResponse();
             $invokeResponse->setTransactionId($response->getResponseText()["txId"]);
@@ -118,9 +117,8 @@ class InvokeApi {
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
             $apiException = new XooaApiException();
-            $apiException->setErrorCode($response.getResponseCode());
-            $apiException->setErrorMessage($response.getResponseText());
-
+            $apiException->setErrorCode($response->getResponseCode());
+            $apiException->setErrorMessage($response->getResponseText());
             throw $apiException;
         } else {
             $pendingTransactionResponse = new PendingTransactionResponse();
@@ -131,4 +129,3 @@ class InvokeApi {
         }
     }
 }
-?>

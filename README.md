@@ -1,3 +1,7 @@
+
+[![Build Status](http://3.84.45.239:8080/buildStatus/icon?job=xooa-php-sdk-1)](http://3.84.45.239:8080/job/xooa-php-sdk-1/)
+
+
 Xooa PHP SDK
 ===================
 
@@ -72,7 +76,7 @@ string — Should contain an instance of object of Monolog/logger
 ### \$DEFAULT\_CALLOUT\_BASE\_URL {.private}
 
 ``` {.signature}
-$DEFAULT_CALLOUT_BASE_URL : string
+$defaultCalloutBaseUrl : string
 ```
 
 
@@ -898,6 +902,33 @@ getResultForBlockByNumber(string  $resultId) : \XooaSDK\BlockResponse
 #### Returns
 
 [\\XooaSDK\\BlockResponse](src/response/BlockResponse.php)
+
+==
+
+### getResultForTransaction() {.public}
+
+[](#source-view)
+
+``` {.signature style="margin-right: 54px;"}
+getResultForTransaction(string  $resultId) : \XooaSDK\TransactionResponse
+```
+
+*This function returns the result of previously submitted transaction pending request*
+
+#### Parameters
+
+  -------- ------------ --
+  string   \$resultId   
+  -------- ------------ --
+
+#### Throws
+
+[\\XooaSDK\\exception\\XooaApiException](src/exception/XooaApiException.php)
+[\\XooaSDK\\exception\\XooaRequestTimeoutException](src/exception/XooaRequestTimeoutException.php)
+
+#### Returns
+
+[\\XooaSDK\\TransactionResponse](src/response/TransactionResponse.php)
 
 ==
 

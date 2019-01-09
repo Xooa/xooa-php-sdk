@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK;
+
 use XooaSDK\exception\XooaApiException;
 use XooaSDK\exception\XooaRequestTimeoutException;
 use XooaSDK\response\IdentityResponse;
@@ -37,7 +38,7 @@ class IdentityApi {
      */
     public function currentIdentity($calloutBaseUrl, $apiToken) {
         $url = $calloutBaseUrl . "/identities/me";
-        return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_GET, null);
+        return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodGet, null);
     }
 
     /**
@@ -50,7 +51,7 @@ class IdentityApi {
      */
     public function getIdentities($calloutBaseUrl, $apiToken) {
         $url = $calloutBaseUrl . "/identities/";
-        return $this->callAllIdentitiesApi($apiToken, $url, WebService::$REQUEST_METHOD_GET, null);
+        return $this->callAllIdentitiesApi($apiToken, $url, WebService::$RequestMethodGet, null);
     }
 
     /**
@@ -64,9 +65,9 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function enrollIdentity($calloutBaseUrl, $apiToken, $identityRequest, $timeout=3000) {
-        $url = $calloutBaseUrl . "/identities/?timeout=" . $timeout;
-        return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_POST, $identityRequest);
+    public function enrollIdentity($calloutBaseUrl, $apiToken, $identityRequest, $timeout) {
+        $url = $calloutBaseUrl . "/identities?timeout=" . $timeout;
+        return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodPost, $identityRequest);
     }
 
     /**
@@ -79,8 +80,8 @@ class IdentityApi {
      * @throws XooaApiException
      */
     public function enrollIdentityAsync($calloutBaseUrl, $apiToken, $identityRequest) {
-        $url = $calloutBaseUrl . "/identities/?async=true";
-        return $this->callIdentityApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_POST, $identityRequest);
+        $url = $calloutBaseUrl . "/identities?async=true";
+        return $this->callIdentityApiAsync($apiToken, $url, WebService::$RequestMethodPost, $identityRequest);
     }
 
     /**
@@ -94,9 +95,9 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function regenerateIdentityApiToken($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
-        $url = $calloutBaseUrl . "/identities/" . $identityId . "/regeneratetoken/?timeout=" . $timeout;
-        return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_POST, null);
+    public function regenerateIdentityApiToken($calloutBaseUrl, $apiToken, $identityId, $timeout) {
+        $url = $calloutBaseUrl . "/identities/" . $identityId . "/regeneratetoken?timeout=" . $timeout;
+        return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodPost, null);
     }
     /**
      * Regenerates Identity API token asynchronously
@@ -108,8 +109,8 @@ class IdentityApi {
      * @throws XooaApiException
      */
     public function regenerateIdentityApiTokenAsync($calloutBaseUrl, $apiToken, $identityId) {
-        $url = $calloutBaseUrl . "/identities/" . $identityId . "/regeneratetoken/?async=true";
-        return $this->callIdentityApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_POST, null);
+        $url = $calloutBaseUrl . "/identities/" . $identityId . "/regeneratetoken?async=true";
+        return $this->callIdentityApiAsync($apiToken, $url, WebService::$RequestMethodPost, null);
     }
 
     /**
@@ -123,9 +124,9 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
-        $url = $calloutBaseUrl . "/identities/" . $identityId . "/?timeout=" . $timeout;
-        return $this->callIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_GET, null);
+    public function getIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout) {
+        $url = $calloutBaseUrl . "/identities/" . $identityId . "?timeout=" . $timeout;
+        return $this->callIdentityApi($apiToken, $url, WebService::$RequestMethodGet, null);
     }
 
     /**
@@ -139,9 +140,9 @@ class IdentityApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function deleteIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout=3000) {
-        $url = $calloutBaseUrl . "/identities/" . $identityId . "/?timeout=" . $timeout;
-        return $this->callDeleteIdentityApi($apiToken, $url, WebService::$REQUEST_METHOD_DELETE, null);
+    public function deleteIdentity($calloutBaseUrl, $apiToken, $identityId, $timeout) {
+        $url = $calloutBaseUrl . "/identities/" . $identityId . "?timeout=" . $timeout;
+        return $this->callDeleteIdentityApi($apiToken, $url, WebService::$RequestMethodDelete, null);
     }
 
     /**
@@ -154,8 +155,8 @@ class IdentityApi {
      * @throws XooaApiException
      */
     public function deleteIdentityAsync($calloutBaseUrl, $apiToken, $identityId) {
-        $url = $calloutBaseUrl . "/identities/" . $identityId . "/?async=true";
-        return $this->callIdentityApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_DELETE, null);
+        $url = $calloutBaseUrl . "/identities/" . $identityId . "?async=true";
+        return $this->callIdentityApiAsync($apiToken, $url, WebService::$RequestMethodDelete, null);
     }
 
     
@@ -182,14 +183,12 @@ class IdentityApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $deleteResponse = new DeleteResponse();
             $deleteResponse->setDeleted($response->getResponseText()["deleted"]);
@@ -221,14 +220,12 @@ class IdentityApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $identityResponse = new IdentityResponse();
             $identityResponse->setIdentityName($response->getResponseText()["IdentityName"]);
@@ -266,7 +263,6 @@ class IdentityApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
         } else {
             $pendingTransactionResponse = new PendingTransactionResponse();
             $pendingTransactionResponse->setResultUrl($response->getResponseText()["resultURL"]);
@@ -299,18 +295,16 @@ class IdentityApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $response = $response->getResponseText();
             $identityArr = [];
-            foreach($response as $identity) {
+            foreach ($response as $identity) {
                 $identityResponse = new IdentityResponse();
                 $identityResponse->setIdentityName($identity["IdentityName"]);
                 $identityResponse->setAccessType($identity["Access"]);
@@ -318,7 +312,9 @@ class IdentityApi {
                 $identityResponse->setCreatedAt($identity["createdAt"]);
                 $identityResponse->setId($identity["Id"]);
                 $identityResponse->setAttrs($identity["Attrs"]);
-                array_push($identityArr,$identityResponse);
+                $identityResponse->setAppId($identity["AppId"]);
+                $identityResponse->setAppName($identity["AppName"]);
+                array_push($identityArr, $identityResponse);
             }
             XooaClient::$log->info($identityArr);
             return $identityArr;

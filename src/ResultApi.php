@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK;
+
 use XooaSDK\exception\XooaApiException;
 use XooaSDK\exception\XooaRequestTimeoutException;
 use XooaSDK\response\InvokeResponse;
@@ -25,6 +26,7 @@ use XooaSDK\response\IdentityResponse;
 use XooaSDK\response\CurrentBlockResponse;
 use XooaSDK\response\BlockResponse;
 use XooaSDK\response\DeleteResponse;
+use XooaSDK\response\TransactionResponse;
 use XooaSDK\WebService;
 
 class ResultApi {
@@ -42,7 +44,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -50,14 +52,12 @@ class ResultApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $invokeResponse = new InvokeResponse();
             $invokeResponse->setTransactionId($response->getResponseText()["result"]["txId"]);
@@ -81,7 +81,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -89,14 +89,12 @@ class ResultApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $queryResponse = new QueryResponse();
             $queryResponse->setPayload($response->getResponseText()["result"]["payload"]);
@@ -119,7 +117,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -127,21 +125,18 @@ class ResultApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $identityResponse = new IdentityResponse();
             $identityResponse->setIdentityName($response->getResponseText()["result"]["IdentityName"]);
             $identityResponse->setAccessType($response->getResponseText()["result"]["Access"]);
             $identityResponse->setCanManageIdentities($response->getResponseText()["result"]["canManageIdentities"]);
             $identityResponse->setCreatedAt($response->getResponseText()["result"]["createdAt"]);
-            $identityResponse->setApiToken($response->getResponseText()["result"]["ApiToken"]);
             $identityResponse->setId($response->getResponseText()["result"]["Id"]);
             $identityResponse->setAttrs($response->getResponseText()["result"]["Attrs"]);
             $identityResponse->setAppId($response->getResponseText()["result"]["AppId"]);
@@ -165,7 +160,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -173,14 +168,12 @@ class ResultApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $deleteResponse = new DeleteResponse();
             $deleteResponse->setDeleted($response->getResponseText()["result"]["deleted"]);
@@ -203,7 +196,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -211,14 +204,12 @@ class ResultApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $currentBlockResponse = new CurrentBlockResponse();
             $currentBlockResponse->setCurrentBlockHash($response->getResponseText()["result"]["currentBlockHash"]);
@@ -243,7 +234,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -251,14 +242,12 @@ class ResultApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $blockResponse = new BlockResponse();
             $blockResponse->setDataHash($response->getResponseText()["result"]["data_hash"]);
@@ -284,7 +273,7 @@ class ResultApi {
         $url = $calloutBaseUrl . "/results/" . $resultId;
 
         $callout = new WebService($apiToken);
-        $response = $callout->makeResultCall($url, WebService::$REQUEST_METHOD_GET);
+        $response = $callout->makeResultCall($url, WebService::$RequestMethodGet);
 
         if ($response->getResponseCode() >= 400 && $response->getResponseCode() < 500) {
             XooaClient::$log->error('Exception occured: '.$response->getResponseText()["error"]);
@@ -292,24 +281,22 @@ class ResultApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $transactionResponse = new TransactionResponse();
             $transactionResponse->setTxid($response->getResponseText()["result"]["txid"]);
             $transactionResponse->setCreatedt($response->getResponseText()["result"]["createdt"]);
             $transactionResponse->setSmartcontract($response->getResponseText()["result"]["smartcontract"]);
-            $transactionResponse->setCreator_msp_id($response->getResponseText()["result"]["creator_msp_id"]);
-            $transactionResponse->setEndorser_msp_id($response->getResponseText()["result"]["endorser_msp_id"]);
+            $transactionResponse->setCreatorMspId($response->getResponseText()["result"]["creator_msp_id"]);
+            $transactionResponse->setEndorserMspId($response->getResponseText()["result"]["endorser_msp_id"]);
             $transactionResponse->setType($response->getResponseText()["result"]["type"]);
-            $transactionResponse->setRead_set($response->getResponseText()["result"]["read_set"]);
-            $transactionResponse->setWrite_set($response->getResponseText()["result"]["write_set"]);
+            $transactionResponse->setReadSet($response->getResponseText()["result"]["read_set"]);
+            $transactionResponse->setWriteSet($response->getResponseText()["result"]["write_set"]);
             XooaClient::$log->info($transactionResponse);
             return $transactionResponse;
         }

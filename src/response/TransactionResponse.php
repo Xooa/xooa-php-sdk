@@ -17,7 +17,8 @@
  */
 
 namespace XooaSDK\response;
- class TransactionResponse {
+
+class TransactionResponse {
     private $txid;
     private $createdt;
     private $smartcontract;
@@ -88,42 +89,42 @@ namespace XooaSDK\response;
     }
 
     /**
-     * getCreator_msp_id
+     * getCreatorMspId
      *
      * @return string
      */
-    public function getCreator_msp_id(): string {
+    public function getCreatorMspId(): string {
         return $this->creator_msp_id;
     }
     
     /**
-     * setCreator_msp_id
+     * setCreatorMspId
      *
      * @param string $creator_msp_id
      *
      * @return void
      */
-    public function setCreator_msp_id($creator_msp_id): void {
+    public function setCreatorMspId($creator_msp_id): void {
         $this->creator_msp_id = $creator_msp_id;
     }
 
     /**
-     * getEndorser_msp_id
+     * getEndorserMspId
      *
      * @return string
      */
-    public function getEndorser_msp_id(): string {
+    public function getEndorserMspId(): string {
         return $this->endorser_msp_id;
     }
     
     /**
-     * setEndorser_msp_id
+     * setEndorserMspId
      *
      * @param string $endorser_msp_id
      *
      * @return void
      */
-    public function setEndorser_msp_id($endorser_msp_id): void {
+    public function setEndorserMspId($endorser_msp_id): void {
         $this->endorser_msp_id = $endorser_msp_id;
     }
 
@@ -148,42 +149,42 @@ namespace XooaSDK\response;
     }
 
     /**
-     * getRead_set
+     * getReadSet
      *
      * @return string
      */
-    public function getRead_set(): string {
+    public function getReadSet(): string {
         return $this->read_set;
     }
     
     /**
-     * setRead_set
+     * setReadSet
      *
      * @param string $read_set
      *
      * @return void
      */
-    public function setRead_set($read_set): void {
+    public function setReadSet($read_set): void {
         $this->read_set = $read_set;
     }
 
     /**
-     * getWrite_set
+     * getWriteSet
      *
      * @return string
      */
-    public function getWrite_set(): string {
+    public function getWriteSet(): string {
         return $this->creator_msp_id;
     }
     
     /**
-     * setWrite_set
+     * setWriteSet
      *
      * @param string $write_set
      *
      * @return void
      */
-    public function setWrite_set($write_set): void {
+    public function setWriteSet($write_set): void {
         $this->write_set = $write_set;
     }
 }

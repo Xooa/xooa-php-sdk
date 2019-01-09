@@ -21,31 +21,47 @@ use XooaSDK\XooaClient;
 
 final class XooaClientTest extends TestCase
 {
-    protected function setUp()
+    private static $xooaClient;
+    private static $xooaClient1;
+    public static function setUpBeforeClass()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient->validate();
+        self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient->validate();
     }
     
     public function testCanValidateFromValidArguments(): void
     {
+        sleep(5);
         $this->assertEquals(
             true,
-            $this->xooaClient->validate()
+            self::$xooaClient->validate()
+        );
+    }
+
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotValidateFromInvalidArguments(): void
+    {
+        self::$xooaClient1 = new XooaClient("abc");
+        self::$xooaClient1->validate();
+    }
+
+    public function testCanGetApiTokenFromValidArguments(): void
+    {   
+        $this->assertEquals(
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM",
+            self::$xooaClient->getApiToken()
         );
     }
 
     public function testCanSetUrlFromValidArguments(): void
     {
-        $this->xooaClient->setURL("https://api.ci.xooa.io/api/v1");
+        self::$xooaClient->setURL("https://api.ci.xooa.io/api/v1");
         
         $this->assertEquals(
             "https://api.ci.xooa.io/api/v1",
-            $this->xooaClient->getURL()
+            self::$xooaClient->getURL()
         );
     }
 }
-
-
-
-?>

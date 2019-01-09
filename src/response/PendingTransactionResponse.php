@@ -17,48 +17,48 @@
  */
 
 namespace XooaSDK\response;
-    class PendingTransactionResponse {
-        private $resultUrl;
-        private $resultId;
 
-        /**
-         * getResultUrl
-         *
-         * @return void
-         */
-        public function getResultUrl() {
-            return $this->resultUrl;
-        }
+class PendingTransactionResponse {
+    private $resultUrl;
+    private $resultId;
 
-        /**
-         * setResultUrl
-         *
-         * @param  string $resultUrl
-         *
-         * @return void
-         */
-        public function setResultUrl($resultUrl): void {
-            $this->resultUrl = $resultUrl;
-        }
-
-        /**
-         * getResultId
-         *
-         * @return void
-         */
-        public function getResultId() {
-            return $this->resultId;
-        }
-
-        /**
-         * setResultId
-         *
-         * @param  string $resultId
-         *
-         * @return void
-         */
-        public function setResultId($resultId): void {
-            $this->resultId = $resultId;
-        }
+    /**
+     * getResultUrl
+     *
+     * @return void
+     */
+    public function getResultUrl() {
+        return $this->resultUrl;
     }
-?>
+
+    /**
+     * setResultUrl
+     *
+     * @param  string $resultUrl
+     *
+     * @return void
+     */
+    public function setResultUrl($resultUrl): void {
+        $this->resultUrl = $resultUrl;
+    }
+
+    /**
+     * getResultId
+     *
+     * @return void
+     */
+    public function getResultId() {
+        return $this->resultId;
+    }
+
+    /**
+     * setResultId
+     *
+     * @param  string $resultId
+     *
+     * @return void
+     */
+    public function setResultId($resultId): void {
+        $this->resultId = $resultId;
+    }
+}

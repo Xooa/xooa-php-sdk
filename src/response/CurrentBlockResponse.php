@@ -17,7 +17,8 @@
  */
 
 namespace XooaSDK\response;
- class CurrentBlockResponse {
+
+class CurrentBlockResponse {
     private $currentBlockHash;
     private $previousBlockHash;
     private $blockNumber;

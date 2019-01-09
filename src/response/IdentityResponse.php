@@ -17,22 +17,15 @@
  */
 
 namespace XooaSDK\response;
+
 class IdentityResponse {
-
     private $identityName;
-
     private $accessType;
-
     private $canManageIdentities;
-
     private $createdAt;
-
     private $id;
-
     private $attrs;
-
     private $appId;
-
     private $appName;
 
     /**

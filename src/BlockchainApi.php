@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK;
+
 use XooaSDK\exception\XooaApiException;
 use XooaSDK\exception\XooaRequestTimeoutException;
 use XooaSDK\response\BlockResponse;
@@ -35,9 +36,9 @@ class BlockchainApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getCurrentBlock($calloutBaseUrl, $apiToken) {
-        $url = $calloutBaseUrl . "/block/current";
-        return $this->callBlockchainApi($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+    public function getCurrentBlock($calloutBaseUrl, $apiToken, $timeout) {
+        $url = $calloutBaseUrl . "/block/current?timeout=" . $timeout;
+        return $this->callBlockchainApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -48,8 +49,8 @@ class BlockchainApi {
      * @throws XooaApiException
      */
     public function getCurrentBlockAsync($calloutBaseUrl, $apiToken) {
-        $url = $calloutBaseUrl . "/block/current/?async=true";
-        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        $url = $calloutBaseUrl . "/block/current?async=true";
+        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -62,9 +63,9 @@ class BlockchainApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getBlockByNumber($calloutBaseUrl, $apiToken, $blockNumber) {
-        $url = $calloutBaseUrl . "/block/" . $blockNumber;
-        return $this->callBlockApi($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+    public function getBlockByNumber($calloutBaseUrl, $apiToken, $blockNumber, $timeout) {
+        $url = $calloutBaseUrl . "/block/" . $blockNumber . "?timeout=" . $timeout;
+        return $this->callBlockApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -77,8 +78,8 @@ class BlockchainApi {
      * @throws XooaApiException
      */
     public function getBlockByNumberAsync($calloutBaseUrl, $apiToken, $blockNumber) {
-        $url = $calloutBaseUrl . "/block/" . $blockNumber . "/?async=true";
-        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        $url = $calloutBaseUrl . "/block/" . $blockNumber . "?async=true";
+        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -91,9 +92,9 @@ class BlockchainApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function getTransactionByTransactionId($calloutBaseUrl, $apiToken, $transactionId) {
-        $url = $calloutBaseUrl . "/transactions/" . $transactionId;
-        return $this->callTransactionApi($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+    public function getTransactionByTransactionId($calloutBaseUrl, $apiToken, $transactionId, $timeout) {
+        $url = $calloutBaseUrl . "/transactions/" . $transactionId . "?timeout=" . $timeout;
+        return $this->callTransactionApi($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     /**
@@ -106,8 +107,8 @@ class BlockchainApi {
      * @throws XooaApiException
      */
     public function getTransactionByTransactionIdAsync($calloutBaseUrl, $apiToken, $transactionId) {
-        $url = $calloutBaseUrl . "/transactions/" . $transactionId . "/?async=true";
-        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$REQUEST_METHOD_GET);
+        $url = $calloutBaseUrl . "/transactions/" . $transactionId . "?async=true";
+        return $this->callBlockchainApiAsync($apiToken, $url, WebService::$RequestMethodGet);
     }
 
     private function callBlockchainApi($apiToken, $url, $requestMethod) {
@@ -120,14 +121,12 @@ class BlockchainApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {
+        } elseif ($response->getResponseCode() == 202) {
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $currentBlockResponse = new CurrentBlockResponse();
             $currentBlockResponse->setCurrentBlockHash($response->getResponseText()["currentBlockHash"]);
@@ -160,14 +159,12 @@ class BlockchainApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {
+        } elseif ($response->getResponseCode() == 202) {
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $blockResponse = new BlockResponse();
             $blockResponse->setDataHash($response->getResponseText()["data_hash"]);
@@ -201,24 +198,22 @@ class BlockchainApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {
+        } elseif ($response->getResponseCode() == 202) {
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $transactionResponse = new TransactionResponse();
             $transactionResponse->setTxid($response->getResponseText()["txid"]);
             $transactionResponse->setCreatedt($response->getResponseText()["createdt"]);
             $transactionResponse->setSmartcontract($response->getResponseText()["smartcontract"]);
-            $transactionResponse->setCreator_msp_id($response->getResponseText()["creator_msp_id"]);
-            $transactionResponse->setEndorser_msp_id($response->getResponseText()["endorser_msp_id"]);
+            $transactionResponse->setCreatorMspId($response->getResponseText()["creator_msp_id"]);
+            $transactionResponse->setEndorserMspId($response->getResponseText()["endorser_msp_id"]);
             $transactionResponse->setType($response->getResponseText()["type"]);
-            $transactionResponse->setRead_set($response->getResponseText()["read_set"]);
-            $transactionResponse->setWrite_set($response->getResponseText()["write_set"]);
+            $transactionResponse->setReadSet($response->getResponseText()["read_set"]);
+            $transactionResponse->setWriteSet($response->getResponseText()["write_set"]);
             XooaClient::$log->info($transactionResponse);
             return $transactionResponse;
         }
@@ -245,7 +240,6 @@ class BlockchainApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
         } else {
             $pendingTransactionResponse = new PendingTransactionResponse();
             $pendingTransactionResponse->setResultUrl($response->getResponseText()["resultURL"]);
@@ -255,5 +249,3 @@ class BlockchainApi {
         }
     }
 }
-
-?>

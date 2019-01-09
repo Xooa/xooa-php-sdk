@@ -20,15 +20,23 @@ use PHPUnit\Framework\TestCase;
 use XooaSDK\XooaClient;
 
 final class QueryTest extends TestCase {
-    protected function setUp()
+
+    private static $xooaClient;
+    private static $xooaClient1;
+
+    public static function setUpBeforeClass()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient->validate();
+        self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient->validate();
+        self::$xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient1->validate();
+        self::$xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
     }
     
     public function testCanQueryFromValidArguments()
     {
-        $response = $this->xooaClient->query('get',["args1"]);
+        sleep(5);
+        $response = self::$xooaClient->query('get', ["args1"], 15000);
         $this->assertInstanceOf(
             'XooaSDK\response\QueryResponse',
             $response
@@ -37,23 +45,31 @@ final class QueryTest extends TestCase {
 
     public function testReturnsFromValidArguments()
     {
-        $response = $this->xooaClient->query('get',["args1"]);
+        $response = self::$xooaClient->query('get', ["args1"], 15000);
         $this->assertEquals("args2", $response->getPayload());
     }
 
-    // public function testCannotQueryFromInvalidArguments(): void
-    // {
-    //     $this->expectException('XooaSDK\exception\XooaApiException');
-    //     $this->xooaClient->query('get');
-    // }
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotQueryFromInvalidApiToken(): void
+    {
+        self::$xooaClient1->query('get', [], 15000);
+    }
 
     public function testCanQueryAsyncFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->queryAsync('get',["args1"])
+            self::$xooaClient->queryAsync('get', ["args1"])
         );
     }
-}
 
-?>
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotQueryAsyncFromInvalidApiToken(): void
+    {
+        $response = self::$xooaClient1->queryAsync('get');
+    }
+}

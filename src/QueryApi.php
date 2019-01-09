@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK;
+
 use XooaSDK\exception\XooaApiException;
 use XooaSDK\exception\XooaRequestTimeoutException;
 use XooaSDK\response\InvokeResponse;
@@ -38,7 +39,7 @@ class QueryApi {
      * @throws XooaApiException
      * @throws XooaRequestTimeoutException
      */
-    public function query($calloutBaseUrl, $functionName, $apiToken, $args = [], $timeout=3000) {
+    public function query($calloutBaseUrl, $functionName, $apiToken, $args, $timeout) {
         $url = $calloutBaseUrl . "/query/" . $functionName . "?timeout=" . $timeout;
         return $this->callQueryApi($apiToken, $url, $args);
     }
@@ -80,14 +81,12 @@ class QueryApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
-        } else if ($response->getResponseCode() == 202) {             
+        } elseif ($response->getResponseCode() == 202) {             
             XooaClient::$log->notice('Timeout Exception occured');
             $timeoutException = new XooaRequestTimeoutException();
             $timeoutException->setResultUrl($response->getResponseText()["resultURL"]);
             $timeoutException->setResultId($response->getResponseText()["resultId"]);
             throw $timeoutException;
-            
         } else {
             $queryResponse = new QueryResponse();
             $queryResponse->setPayload($response->getResponseText()["payload"]);
@@ -117,7 +116,6 @@ class QueryApi {
             $apiException->setErrorCode($response->getResponseCode());
             $apiException->setErrorMessage($response->getResponseText()["error"]);
             throw $apiException;
-
         } else {
             $pendingTransactionResponse = new PendingTransactionResponse();
             $pendingTransactionResponse->setResultUrl($response->getResponseText()["resultURL"]);

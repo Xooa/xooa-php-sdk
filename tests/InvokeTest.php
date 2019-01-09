@@ -20,40 +20,50 @@ use PHPUnit\Framework\TestCase;
 use XooaSDK\XooaClient;
 
 final class InvokeTest extends TestCase {
-    protected function setUp()
+    
+    private static $xooaClient;
+    private static $xooaClient1;
+
+    public static function setUpBeforeClass()
     {
-        $this->xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
-        $this->xooaClient->validate();
+        self::$xooaClient = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient->validate();
+        self::$xooaClient1 = new XooaClient("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcGlLZXkiOiI3RDc4MDFQLVRHNjRQRUQtS0FNS1dXNS1DQzlZOVE1IiwiQXBpU2VjcmV0IjoiQUNDRXR4aGRvT0swcmZ5IiwiUGFzc3BocmFzZSI6IjQ4MTBmZDNiNTUzNWFkNmUwMTYzNjQyM2UyNGEyZDE1IiwiaWF0IjoxNTQ1Mjc5NTE5fQ.pv-ySA8Vv03RQwVwjynJ3RqODenzksiprAzy9g_mgcM");
+        self::$xooaClient1->validate();
+        self::$xooaClient1->setUrl("https://api.ci.xooa.io/api/v1");
     }
     
     public function testCanInvokeFromValidArguments()
     {
-        $response = $this->xooaClient->invoke('set',["args1","args2"]);
+        sleep(5);
+        $response = self::$xooaClient->invoke('set', ["args1", "args2"], 15000);
         $this->assertInstanceOf(
             'XooaSDK\response\InvokeResponse',
             $response
         );
     }
 
-    public function testInvokeReturnsFromValidArguments()
-    {   
-        $response = $this->xooaClient->invoke('set',["args1","args2"]);
-        $this->assertEquals("", $response->getPayload());
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotInvokeFromInvalidArguments(): void
+    {
+        self::$xooaClient->invoke('set', ["args1"], 15000);
     }
-
-    // public function testCannotInvokeFromInvalidArguments(): void
-    // {
-    //     $this->expectException('XooaSDK\exception\XooaApiException');
-    //     $this->xooaClient->invoke('set',["args1"]);
-    // }
 
     public function testCanInvokeAsyncFromValidArguments(): void
     {
         $this->assertInstanceOf(
             'XooaSDK\response\PendingTransactionResponse',
-            $this->xooaClient->invokeAsync('set',["args1","args2"])
+            self::$xooaClient->invokeAsync('set', ["args1", "args2"])
         );
     }
-}
 
-?>
+    /**
+     * @expectedException XooaSDK\exception\XooaApiException
+     */
+    public function testCannotInvokeAsyncFromInvalidApiToken(): void
+    {
+        self::$xooaClient1->invokeAsync('set', ["args1"]);
+    }
+}

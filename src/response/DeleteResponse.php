@@ -17,6 +17,7 @@
  */
 
 namespace XooaSDK\response;
+
 class DeleteResponse {
 
     private $deleted;
@@ -41,5 +42,3 @@ class DeleteResponse {
         $this->deleted = $deleted;
     }
 }
-
-?>
