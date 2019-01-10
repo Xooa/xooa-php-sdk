@@ -123,7 +123,7 @@ final class IdentitiesTest extends TestCase {
     {
         $this->assertInstanceOf(
             'XooaSDK\response\IdentityResponse',
-            self::$xooaClient->regenerateIdentityApiToken($identityId1)
+            self::$xooaClient->regenerateIdentityApiToken($identityId1, 10000)
         );
     }
 

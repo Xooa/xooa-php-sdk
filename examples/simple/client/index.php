@@ -209,7 +209,7 @@ if ($XooaClient->validate()) {
      * */
     try {
         $log->debug('calling regenerateIdentityApiToken method with identity ID of identity generated in enrollIdentity method call');
-        $response = $XooaClient->regenerateIdentityApiToken($identityId1);
+        $response = $XooaClient->regenerateIdentityApiToken($identityId1, 10000);
         var_dump($response);
 
     } catch (Exception $e) {
