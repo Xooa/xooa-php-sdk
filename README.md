@@ -9,7 +9,9 @@ Xooa PHP SDK
 
 This class contains all the public functions available by SDK.
 
-This SDK refers to APIs available for Xooa platform. For more details, refer: <https://api.xooa.com/explorer>
+This SDK refers to smart contract APIs available for Xooa platform. For more details, refer: <https://api.xooa.com/explorer>
+
+Note: XLDB and asset management APIs are not included in the SDK.
 
 The platform documentation is available at <https://docs.xooa.com>
 
